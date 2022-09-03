@@ -1,0 +1,2 @@
+C:\workplace\c++\huawei\x64\Debug\huawei.exe
+C:\workplace\c++\test\huawei\x64\Debug\huawei.exe
