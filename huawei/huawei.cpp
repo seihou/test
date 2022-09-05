@@ -249,13 +249,128 @@
 //	return 0;
 //}
 
-////11.
+////11.数字颠倒：字符串
 //#include <iostream>
+//#include <string>
+//#include <algorithm>
 //using namespace std;
 //int main()
 //{
+//	string str;
+//	getline(cin, str);
+//	reverse(str.begin(), str.end());//需要头文件algorithm
+//	cout << str << endl;
 //	return 0;
 //}
+
+////12.字符串反转：字符串 不用reverse
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	string str;
+//	getline(cin, str);
+//	int n = str.size() - 1;
+//	for(int i = n; i >= 0; i--) {
+//		cout << str[i];
+//	}
+//	return 0;
+//}
+
+////13.句子逆序：数组、字符串
+//#include <iostream>
+//#include <string>
+//#include <stack>
+//using namespace std;
+//int main()
+//{
+//	string str;
+//	stack<string> s;
+//	while (cin >> str) {	// ctrl + z 或 ctrl + d 终止输入
+//		s.push(str);
+//	}
+//	/*for (int i = s.size(); i > 0; i--) {
+//		cout << s.top() << ' ';
+//		s.pop();
+//	}*/
+//	while (!s.empty()) {
+//		cout << s.top() << ' ';
+//		s.pop();
+//	}
+//	cout << endl;
+//	system("pause");//暂停程序看结果
+//	return 0;
+//}
+
+////14.字符串排序：字符串、排序
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//	int num;
+//	cin >> num;
+//	vector<string> vec;
+//	string str;
+//	for (int i = 0; i < num; i++) { //可以用while(num--)
+//		cin >> str;
+//		vec.push_back(str);
+//	}
+//	sort(vec.begin(), vec.end());
+//	for (auto i : vec) {
+//		cout << i << ' ';
+//	}
+//	cout << endl;
+//	return 0;
+//}
+
+////15.求int型正整数在内存中存储时1的个数：位运算
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//////使用位运算
+////int main()
+////{
+////	int n;
+////	cin >> n;
+////	int cnt;
+////	for (cnt = 0; n; n &= n - 1) //位运算
+////		cnt++;
+////	cout << cnt << endl;
+////	return 0;
+////}
+////使用移位统计1的个数
+//int main()
+//{
+//	int n, res = 0;
+//	cin >> n;
+//	while (n) {
+//		if (n % 2) res++;
+//		n >>= 1;
+//	}
+//	cout << res << endl;
+//	return 0;
+//}
+
+//16.动态规划、数组
+#include <iostream>
+#include <vector>
+using namespace std;
+int max(int n,int m)
+{
+	return n > m ? n : m;
+}
+int dp[3200];//金额为3200
+int main()
+{
+	
+	return 0;
+}
 
 
 
