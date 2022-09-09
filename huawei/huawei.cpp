@@ -783,24 +783,135 @@
 //    return 0;
 //}
 
-//23.删除字符串中出现次数最少的字符：字符串、STL、排序
+////23.删除字符串中出现次数最少的字符：字符串、STL、排序
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <map>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//    string s;
+//    vector<string> result;
+//    while (cin >> s)
+//    {
+//        map<char, int> m;
+//        for (int i = 0; i < s.size(); ++i)
+//        {
+//            m[s[i]]++;
+//        }
+//        vector<int> v;
+//        for (map<char, int>::iterator it = m.begin(); it != m.end(); it++)
+//        {
+//            v.push_back(it->second);
+//        }
+//        sort(v.begin(), v.end());//
+//        int min = v[0];
+//        string tmp;
+//        for (int i = 0; i < s.size(); ++i)
+//        {
+//            if (m[s[i]] != min)
+//                tmp += s[i];
+//        }
+//        result.push_back(tmp);
+//        m.clear();//
+//        v.clear();//
+//    }
+//    for (auto i : result)
+//        cout << i << " ";
+//    return 0;
+//}
+
+////24.合唱队：动态规划、队列
+//#include <iostream>
+//using namespace std;
+//int main()
+//{
+//    int num;
+//    int left[3000], right[3000], people[3000];
+//    while (cin >> num)
+//    {
+//        for (int i = 0; i < num; ++i)
+//        {
+//            cin >> people[i];
+//            left[i] = 1;
+//            for (int j = 0; j < i; ++j)
+//            {
+//                if (people[i] > people[j])
+//                    left[i] = max(left[i], left[j] + 1);//
+//            }
+//        }
+//        for (int i = num - 1; i >= 0; --i)
+//        {
+//            right[i] = 1;
+//            for (int j = num - 1; j >= 0; --j)
+//            {
+//                if (people[i] > people[j])
+//                    right[i] = max(right[i], right[j] + 1);
+//            }
+//        }
+//        int sum = 0;
+//        for (int i = 0; i < num; ++i)
+//        {
+//            if (left[i] + right[i] - 1 > sum)
+//                sum = left[i] + right[i] - 1;
+//        }
+//        cout << num - sum << endl;
+//    }
+//    return 0;
+//}
+
+//25.数据分类处理：排序、STL
 #include <iostream>
 #include <vector>
 #include <string>
-#include <map>
-#include <algorithm>
+#include <set>
 using namespace std;
 int main()
 {
-    string s;
-    while (cin >> s)
+    int num_I, num_R;
+    while (cin >> num_I)
     {
-        map<char, int> m;
-        for (int i = 0; i < s.size(); ++i)
+        vector<string> para_I;
+        set<int> para_R;
+        string s;
+        while (num_I--) { cin >> s; para_I.push_back(s); }
+        cin >> num_R;
+        int a;
+        while (num_R) { cin >> a; para_R.insert(a); }
+        vector<vector<string>> ans(para_R.size());
+        int dex = 0;
+        for (auto i = para_R.begin(); i != para_R.end(); ++i)
         {
-            m[s[i]]++;
+            int count = 0;
+            for (int j = 0; j < para_I.size(); j++)
+            {
+                int pos = para_I[j].find(to_string(*i));
+                if (pos != para_I[j].npos)
+                {
+                    ans[dex].push_back(to_string(j)); //位置
+                    ans[dex].push_back(para_I[j]); //值
+                    count++;
+                }
+            }
+            if (count != 0)
+            {
+                ans[dex].insert(ans[dex].begin(), to_string(count));
+                ans[dex].insert(ans[dex].begin(), to_string(*i));
+            }
+            dex++;
         }
+        int sum = 0;
+        for (auto i : ans)
+        {
+            sum += i.size();
+        }
+        cout << to_string(sum) << ' ';
+        for (auto i : ans)
+            for (auto j : i)
+                cout << j << ' ';
+        cout << endl;
     }
     return 0;
 }
-
