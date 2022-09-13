@@ -862,56 +862,485 @@
 //    return 0;
 //}
 
-//25.数据分类处理：排序、STL
+////25.数据分类处理：排序、STL
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <set>
+//using namespace std;
+//int main()
+//{
+//    int num_I, num_R;
+//    while (cin >> num_I)
+//    {
+//        vector<string> para_I;
+//        set<int> para_R;
+//        string s;
+//        while (num_I--) { cin >> s; para_I.push_back(s); }
+//        cin >> num_R;
+//        int a;
+//        while (num_R) { cin >> a; para_R.insert(a); }
+//        vector<vector<string>> ans(para_R.size());
+//        int dex = 0;
+//        for (auto i = para_R.begin(); i != para_R.end(); ++i)
+//        {
+//            int count = 0;
+//            for (int j = 0; j < para_I.size(); j++)
+//            {
+//                int pos = para_I[j].find(to_string(*i));
+//                if (pos != para_I[j].npos)
+//                {
+//                    ans[dex].push_back(to_string(j)); //位置
+//                    ans[dex].push_back(para_I[j]); //值
+//                    count++;
+//                }
+//            }
+//            if (count != 0)
+//            {
+//                ans[dex].insert(ans[dex].begin(), to_string(count));
+//                ans[dex].insert(ans[dex].begin(), to_string(*i));
+//            }
+//            dex++;
+//        }
+//        int sum = 0;
+//        for (auto i : ans)
+//        {
+//            sum += i.size();
+//        }
+//        cout << to_string(sum) << ' ';
+//        for (auto i : ans)
+//            for (auto j : i)
+//                cout << j << ' ';
+//        cout << endl;
+//    }
+//    return 0;
+//}
+
+////26.字符串排序：字符串、排序
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//    string in;
+//    while (getline(cin, in))
+//    {
+//        string temp = in;
+//        int a[10000] = { 0 }; 
+//        vector<vector<char>> record(100);//       
+//        for (int i = 0; i < in.size(); ++i)
+//        {
+//            if (in[i] >= 'A' && in[i] <= 'Z')
+//            {
+//                a[i] = 1;
+//                record[in[i] - 'A'].push_back(in[i]); // record[0]是存 a或A
+//            }
+//            else if (in[i] >= 'a' && in[i] <= 'z')
+//            {
+//                a[i] = 1;
+//                record[in[i] - 'a'].push_back(in[i]); //
+//            }
+//        }
+//        int i = 0, j = 0;
+//        for (int t = 0; t < in.size(); ++t)
+//        {
+//            if (a[t] == 1)
+//            {
+//                while (j == record[i].size())
+//                {
+//                    i++;//
+//                    j = 0;
+//                }
+//                temp[t] = record[i][j];//对每个字符操作
+//                j++;
+//            }
+//        }
+//        cout << temp << endl;
+//    }
+//    return 0;
+//}
+
+////27.查找兄弟单词：查找、STL
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <algorithm>
+//#include <map>
+//using namespace std;
+//int main()
+//{
+//    int num;
+//    cin >> num;
+//    vector<string> in;
+//    while (num--)
+//    {
+//        string s;
+//        cin >> s;
+//        in.push_back(s);
+//    }
+//    string t;
+//    cin >> t;
+//    int idx;
+//    cin >> idx;
+//    vector<string> result;
+//    for (int p = 0; p < in.size(); ++p)
+//    {
+//        if (in[p].size() != t.size())
+//            continue;
+//        if (in[p] == t)
+//            continue;
+//        map<char, int> m1, m2;//
+//        for (int m = 0; m < t.size(); ++m) //统计字符出现次数
+//        {
+//            m1[in[p][m]]++;
+//            m2[t[m]]++;
+//        }
+//        bool isright = true;
+//        for (int m = 0; m < t.size(); ++m)
+//        {
+//            if (m1[t[m]] != m2[t[m]])
+//            {
+//                isright = false;
+//                break;
+//            }
+//        }
+//        if (isright)
+//        {
+//            result.push_back(in[p]);
+//        }
+//    }
+//    sort(result.begin(), result.end());
+//    if (result.size() != 0)
+//    {
+//        cout << result.size() << endl;
+//        cout << result[idx - 1] << endl;
+//    }
+//    else {
+//        cout << '0' << endl;
+//    }
+//    return 0;
+//}
+
+////28.素数伴侣：匈牙利算法
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//int t[100][100] = { 0 };
+//vector<int> modd(100, -1);
+//vector<int> meven(100, -1);
+//vector<int> visit(100, 0);
+//// 判断是否为素数
+//bool IsPrimer(int num)
+//{
+//    for (int i = 2; i * i <= num; ++i)
+//    {
+//        if (num % i == 0)
+//            return false;
+//    }
+//    return true;
+//}
+//int dfs(int i)
+//{
+//    for (int j = 0; j < 100; ++j)
+//    {
+//        if (t[i][j] == 1 && !visit[j]) //如果是未访问的偶数
+//        {
+//            visit[j] = 1;
+//            if (meven[j] == -1 || dfs(meven[j])) //如果偶数配对了，就让配对它的奇数再去找其他偶数配对
+//            {
+//                modd[i] = j;
+//                meven[j] = i;//
+//                return 1;
+//            }
+//        }
+//    }
+//    return 0;
+//}
+//int main()
+//{
+//    int number;
+//    vector<int> even, odd;
+//    while (cin >> number)
+//    {
+//        for (int i = 0; i < number; ++i)
+//        {
+//            int temp;
+//            cin >> temp;
+//            if (temp % 2 == 0) //分组
+//                odd.push_back(temp);
+//            else
+//                even.push_back(temp);
+//        }
+//        for (int i = 0; i < odd.size(); ++i)
+//        {
+//            for (int j = 0; j < even.size(); ++j)
+//            {
+//                if (IsPrimer(odd[i] + even[j]))
+//                    t[i][j] = 1;
+//            }
+//        }
+//        // 匈牙利算法
+//        int res = 0;
+//        for (int i = 0; i < odd.size(); ++i)
+//        {
+//            if (modd[i] == -1)
+//            {
+//                for (int j = 0; j < visit.size(); ++j)
+//                    visit[j] = 0;
+//            }
+//            res += dfs(i);//
+//        }
+//        cout << res << endl;
+//
+//        // 多组输入，清空容器和图
+//        even.clear();
+//        odd.clear();
+//        for (int i = 0; i < 100; ++i)
+//            for (int j = 0; j < 100; ++j)
+//                t[i][j] = 0;
+//        for (int i = 0; i < 100; ++i)
+//        {
+//            meven[i] = -1;
+//            modd[i] = -1;
+//        }
+//    }
+//    return 0;
+//}
+
+////29.字符串加解密：字符串
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//string encryption(string s)
+//{
+//    string result;
+//    int size = s.size();
+//    for (int i = 0; i < size; ++i)
+//    {
+//        if (s[i] >= 'A' && s[i] <= 'Y')
+//            result += s[i] + 33;
+//        else if (s[i] == 'Z')
+//            result += s[i] + 33 - 25;
+//        else if (s[i] >= 'a' && s[i] <= 'y')
+//            result += s[i] - 31;
+//        else if (s[i] == 'z')
+//            result += s[i] - 31 - 25;
+//        else if (s[i] >= '0' && s[i] <= '8')
+//            result += s[i] + 1;
+//        else if (s[i] == '9')
+//            result = s[i] - 8;
+//        else
+//            result += s[i];
+//    }
+//    return result;
+//}
+//string decryption(string s)
+//{
+//    string result;
+//    int size = s.size();
+//    for (int i = 0; i < size; ++i)
+//    {
+//        if (s[i] >= 'A' && s[i] <= 'Y')
+//            result += s[i] + 31;
+//        else if (s[i] == 'Z')
+//            result += s[i] + 31 - 25;
+//        else if (s[i] >= 'a' && s[i] <= 'y')
+//            result += s[i] - 33;
+//        else if (s[i] == 'z')
+//            result += s[i] - 33 - 25;
+//        else if (s[i] >= '0' && s[i] <= '8')
+//            result += s[i] + 1;
+//        else if (s[i] == '9')
+//            result = s[i] - 8;
+//        else
+//            result += s[i];
+//    }
+//    return result;
+//}
+//int main()
+//{
+//    string p1, p2;
+//    while (cin >> p1 >> p2)
+//    {
+//        string r1 = encryption(p1);
+//        string r2 = decryption(p2);
+//        cout << r1 << endl << r2 << endl;
+//    }
+//    return 0;
+//}
+
+////30.字符串合并处理：字符串、排序、位运算、串流
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//#include <string>
+//#include <sstream>//
+//#include <bitset>//
+//#include <cctype>//
+//using namespace std;
+////计算bit数据的16进制数值，再转化为字符类型
+//char bitToHex(string s)
+//{
+//    int t = (s[0] * 1 - 48) * 8 + (s[1] * 1 - 48) * 4 + (s[2] * 1 - 48) * 2 + (s[3] * 1 - 48) * 1; //0是从48开始的
+//    char ch = ' ';
+//    switch (t)
+//    {
+//    case 10:
+//        ch = 'A';
+//        break;
+//    case 11:
+//        ch = 'B';
+//        break;
+//    case 12:
+//        ch = 'C';
+//        break;
+//    case 13:
+//        ch = 'D';
+//        break;
+//    case 14:
+//        ch = 'E';
+//        break;
+//    case 15:
+//        ch = 'F';
+//        break;
+//    default:
+//        ch = char(t + 48); //0-9
+//    }
+//    return ch;
+//}
+//int main()
+//{
+//    string s1, s2;
+//    vector<string> result;
+//    while (cin >> s1 >> s2)
+//    {
+//        string s = s1 + s2;
+//        vector<char> odd;
+//        vector<char> even;
+//        int size = s.size();
+//        for (int i = 0; i < size; ++i)
+//        {
+//            if (i % 2 == 0)
+//                even.push_back(s[i]);
+//            else
+//                odd.push_back(s[i]);
+//        }
+//        sort(even.begin(), even.end());
+//        sort(odd.begin(), odd.end());
+//        string ns;
+//        int eveni = 0;
+//        int oddi = 0;
+//        for (int i = 0; i < size; ++i)
+//        {
+//            if (i % 2 == 0)
+//            {
+//                ns += even[eveni];
+//                eveni++;
+//            }
+//            else {
+//                ns += odd[oddi];
+//                oddi++;
+//            }
+//        }
+//        string results;
+//        string num = "0123456789ABCDEF";
+//        for (int i = 0; i < size; ++i)
+//        {
+//            if (isdigit(ns[i]) || (ns[i] >= 'A' && ns[i] <= 'F') || (ns[i] >= 'a' && ns[i] <= 'f'))
+//            {
+//                stringstream ss;
+//                ss << bitset<4>(num.find(toupper(ns[i]))); //转化大写字母为4bit
+//                string s = ss.str();
+//                reverse(s.begin(), s.end());
+//                results += bitToHex(s);
+//            }
+//            else
+//            {
+//                results += ns[i];
+//            }
+//        }
+//        result.push_back(results);
+//        s1.clear();
+//        s2.clear();
+//    }
+//    for (auto i : result)
+//        cout << i << endl;
+//    return 0;
+//}
+
+////31.单词倒排：字符串、排序、STL
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//    string s;
+//    vector<string> v;
+//    getline(cin, s);
+//    for (int i = 0; i < s.size(); ++i)
+//    {
+//        string temp;
+//        if ((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z'))
+//            temp += s[i];
+//        else 
+//            if (!s.empty())
+//            {
+//                v.push_back(temp);
+//                temp.clear();
+//            }
+//    }
+//    for (int i = v.size() - 1; i >= 0; --i)
+//        cout << v[i] << " ";
+//    return 0;
+//}
+
+////32.密码截取：字符串、STL、回文
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//    string str;
+//    vector<int> result;
+//    while (cin >> str)
+//    {
+//        int maxn = 1, flag = 0;
+//        for (int i = 0; i < str.length(); ++i)
+//            for (int j = str.length() - 1; j > i; --j)
+//            {
+//                flag = 0;
+//                int l, r;
+//                for (l = i, r = j; l <= (j + i) / 2; l++, r--)
+//                {
+//                    if (str[l] != str[r])
+//                    {
+//                        flag = 1;
+//                        break;
+//                    }
+//                }
+//                if (flag == 0) //若该长段为回文，则此级遍历进行下去也只能找到更短的回文，为提速可直接跳出循环
+//                {
+//                    maxn = max(maxn, (j - i + 1));
+//                    break;
+//                }
+//            }
+//        result.push_back(maxn);
+//    }
+//    for (auto i : result)
+//        cout << i << endl;
+//    return 0;
+//}
+
+//33.整数与IP地址间的转换：字符串、位运算、串流
 #include <iostream>
 #include <vector>
-#include <string>
-#include <set>
+#include <algorithm>
 using namespace std;
 int main()
 {
-    int num_I, num_R;
-    while (cin >> num_I)
-    {
-        vector<string> para_I;
-        set<int> para_R;
-        string s;
-        while (num_I--) { cin >> s; para_I.push_back(s); }
-        cin >> num_R;
-        int a;
-        while (num_R) { cin >> a; para_R.insert(a); }
-        vector<vector<string>> ans(para_R.size());
-        int dex = 0;
-        for (auto i = para_R.begin(); i != para_R.end(); ++i)
-        {
-            int count = 0;
-            for (int j = 0; j < para_I.size(); j++)
-            {
-                int pos = para_I[j].find(to_string(*i));
-                if (pos != para_I[j].npos)
-                {
-                    ans[dex].push_back(to_string(j)); //位置
-                    ans[dex].push_back(para_I[j]); //值
-                    count++;
-                }
-            }
-            if (count != 0)
-            {
-                ans[dex].insert(ans[dex].begin(), to_string(count));
-                ans[dex].insert(ans[dex].begin(), to_string(*i));
-            }
-            dex++;
-        }
-        int sum = 0;
-        for (auto i : ans)
-        {
-            sum += i.size();
-        }
-        cout << to_string(sum) << ' ';
-        for (auto i : ans)
-            for (auto j : i)
-                cout << j << ' ';
-        cout << endl;
-    }
+    
     return 0;
 }
