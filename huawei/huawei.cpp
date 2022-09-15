@@ -1733,7 +1733,7 @@ string English(long num)
         }
         return English(num / 1000000) + " million" + English(num % 1000000 / 1000) + " thousand " + English(num % 1000);
     }
-    return
+    return "error";
 }
 int main()
 {
