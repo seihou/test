@@ -1334,13 +1334,413 @@
 //    return 0;
 //}
 
-//33.整数与IP地址间的转换：字符串、位运算、串流
+////33.整数与IP地址间的转换：字符串、位运算、串流
+//#include <iostream>
+//#include <vector>
+//#include <bitset>
+//#include <sstream>
+//using namespace std;
+//long iptonum(string s)
+//{
+//    vector<int> nums;
+//    istringstream in(s);//放入字符串流
+//    int number;
+//    while (in >> number)
+//    {
+//        nums.push_back(number);
+//    }
+//    string str;
+//    for (auto i : nums)
+//    {
+//        bitset<8> temp(i);//int转8bit
+//        str += temp.to_string();//连接8bit字符串
+//    }
+//    bitset<32> result(str);//string转32bit
+//    long ip = result.to_ulong();//32bit转ulong
+//    return ip;
+//}
+//string numtoip(long n)
+//{
+//    bitset<32> in(n);//ulong转32bit
+//    string str = in.to_string();//32bit转string
+//    vector<int> nums;
+//    for (int i = 0; i < 4; ++i)
+//    {
+//        bitset<8> temp(str.substr(i * 8, 8));
+//        nums.push_back(temp.to_ullong());//存入每8bit的整数值
+//    }
+//    string snum;
+//    for (auto i : nums)
+//    {
+//        snum += '.' + to_string(i);//
+//    }
+//    return snum.substr(1);//排除第一个'.'
+//}
+//int main()
+//{
+//    string str;
+//    long num;
+//    while (cin >> str >> num)
+//    {
+//        for (auto& i : str)//
+//        {
+//            if (i == '.')
+//                i = ' ';
+//        }
+//        long r1 = iptonum(str);
+//        string r2 = numtoip(num);
+//        cout << r1 << endl << r2 << endl;
+//    }
+//    return 0;
+//}
+
+////34.图片整理：字符串、STL
+//#include <iostream>
+//#include <map> //map会自动排序
+//using namespace std;
+//int main()
+//{
+//    string str;
+//    while (cin >> str)
+//    {
+//        map<char, int> m;
+//        for (int i = 0; i < str.size(); ++i)
+//        {
+//            m[str[i]]++;
+//        }
+//        for (auto i = m.begin(); i != m.end(); ++i)
+//        {
+//            for (int j = 0; j < i->second; ++j)
+//                cout << i->first;
+//        }
+//        cout << endl;
+//    }
+//    return 0;
+//}
+
+////35.蛇形矩阵：数学、数组
+//#include <iostream>
+//using namespace std;
+//int main()
+//{
+//    int n;
+//    while (cin >> n)
+//    {
+//        //构造二维矩阵
+//        int** a = new int* [n];//
+//        for (int i = 0; i < n; ++i)
+//        {
+//            a[i] = new int[n];//
+//        }
+//        int start = 1;
+//        for (int i = 0; i < n; ++i)
+//        {
+//            int k = i;
+//            for (int j = 0; j <= i; ++j)
+//            {
+//                a[k][j] = start;
+//                start++;
+//                k--;
+//            }
+//        }
+//        for (int i = 0; i < n; ++i)
+//        {
+//            for (int j = 0; j < n; ++j)
+//            {
+//                if (a[i][j] != 0)
+//                    cout << a[i][j] << " ";
+//            }
+//            cout << endl;
+//        }
+//    }
+//    return 0;
+//}
+
+////36.字符串加密：字符串、密码学
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//    string word, input;
+//    while (cin >> word >> input)
+//    {
+//        char* alpha = new char[26];
+//        int start = 0;
+//        int len = word.length();
+//        for (int i = 0; i < len; i++)
+//        {
+//            word[i] = tolower(word[i]);//字母最小化
+//            if (word.find(word[i]) == i)//字母去重
+//            {
+//                alpha[start] = word[i];
+//                start++;
+//            }
+//        }
+//        for (char t = 'a'; t <= 'z'; ++t)
+//        {
+//            if (word.find(t) == string::npos)
+//            {
+//                alpha[start] = t;
+//                start++;
+//            }
+//        }
+//        for (int i = 0; i < input.length(); ++i)
+//        {
+//            if (input[i] >= 'a' && input[i] <= 'z')
+//                cout << alpha[input[i] - 'a'];
+//            else if (input[i] >= 'A' && input[i] <= 'Z')
+//                cout << (char)(toupper(alpha[input[i] - 'A']));
+//            else
+//                cout << input[i];
+//        }
+//        cout << endl;
+//    }
+//    return 0;
+//}
+
+////37.统计每个月兔子的总数：查找、排序、斐波那契数列、递归
+//#include <iostream>
+//using namespace std;
+//int getnum(int month)
+//{
+//    if (month == 1 || month == 2)//
+//        return 1;
+//    else
+//        return getnum(month - 1) + getnum(month - 2);//
+//}
+//int main()
+//{
+//    int month;
+//    while (cin >> month)
+//    {
+//        cout << getnum(month) << endl;
+//    }
+//    return 0;
+//}
+
+////38.求小球落地5次后所经历的路程和第5次反弹的高度：模拟、思维、数学
+//#include <iostream>
+//using namespace std;
+//int main()
+//{
+//    int height;
+//    while (cin >> height)
+//    {
+//        double sum = 0;
+//        double temp = static_cast<double>(height);
+//        sum += temp;
+//        for (int i = 1; i < 5; ++i)
+//        {
+//            sum += temp;
+//            temp /= 2;
+//        }
+//        cout << sum << ' ' << temp / 2 << endl;
+//    }
+//    return 0;
+//}
+
+////39.判断两个IP是否属于同一子网：字符串、模拟、位运算、串流、STL
+//#include <iostream>
+//#include <bitset>
+//#include <string>
+//#include <vector>
+//#include <sstream>
+//using namespace std;
+//bool ipToNum(string &ip, unsigned int &num, bool isMask)
+//{
+//    for (auto &c : ip)//
+//    {
+//        if (c == '.')
+//            c = ' ';
+//    }
+//    stringstream ss(ip);
+//    vector<int> ips;////
+//    unsigned int n = 0;
+//    while (ss >> n)////
+//    {
+//        ips.push_back(n);
+//    }
+//    if (ips.size() != 4)
+//        return false;
+//    for (auto i : ips)
+//    {
+//        if (i < 0 || i > 255)
+//            return false;
+//    }
+//    num = ips[0] << 24 | ips[1] << 16 | ips[2] << 8 | ips[3] << 0;//组合成32为无符号数
+//    if (isMask)
+//    {
+//        bitset<32> t(num);
+//        string st = t.to_string();
+//        bool isZero = false;
+//        for (int i = 0; i < st.length(); ++i)
+//        {
+//            if (isZero)
+//                if (st[i] == '1')
+//                    return false;
+//            if (st[i] == '0')
+//                isZero = true;
+//        }
+//
+//    }
+//    return true;
+//}
+//int main()
+//{
+//    string mask, ip1, ip2;
+//    while (cin >> mask >> ip1 >> ip2)
+//    {
+//        unsigned int num1, num2, masknum;
+//        if (ipToNum(mask,masknum,true) && ipToNum(ip1, num1, false) && ipToNum(ip2, num2, false))
+//        {
+//            if ((num1 & masknum) == (num2 & masknum))
+//            {
+//                cout << "0" << endl;
+//            }
+//            else
+//            {
+//                cout << "2" << endl;
+//            }
+//        }
+//        else
+//        {
+//            cout << "1" << endl;
+//        }
+//    }
+//    return 0;
+//}
+
+////40.统计字符：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//    string str;
+//    while (getline(cin, str))
+//    {
+//        int letter = 0;
+//        int space = 0;
+//        int number = 0;
+//        int other = 0;
+//        for (int i = 0; i < str.size(); ++i)
+//        {
+//            if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
+//            {
+//                letter++;
+//            }
+//            else if (str[i] == ' ')
+//            {
+//                space++;
+//            }
+//            else if (str[i] >= '0' && str[i] <= '9')
+//            {
+//                number++;
+//            }
+//            else
+//                other++;
+//        }
+//        cout << letter << ' ' << space << ' ' << number << ' ' << other << endl;
+//    }
+//    return 0;
+//}
+
+////41.称砝码：深度优先遍历DFS、字符串、STL
+//#include <iostream>
+//#include <string>
+//#include <unordered_set>
+//using namespace std;
+//int num;
+//int a[11];//每个砝码的重量
+//int b[11];//每个砝码的数量
+//void getWeight(int n, int w, unordered_set<int> &us)
+//{
+//    if (n >= num)
+//        return;
+//    for (int i = 0; i <= b[n]; ++i) //从b[0]开始
+//    {
+//        w += a[w] * i;
+//        us.insert(w);
+//        getWeight(n + 1, w, us);
+//        w -= a[n] * i;
+//    }
+//    return;
+//}
+//int main()
+//{
+//    while (cin >> num)
+//    {
+//        for (int i = 0; i < num; ++i)
+//        {
+//            cin >> a[i];
+//        }
+//        for (int i = 0; i < num; ++i)
+//        {
+//            cin >> b[i];
+//        }
+//        unordered_set<int> weight;
+//        getWeight(0, 0, weight);
+//        cout << weight.size() << endl;
+//    }
+//    return 0;
+//}
+
+//42.学英语：字符串、字典、STL、思维
 #include <iostream>
+#include <string>
 #include <vector>
-#include <algorithm>
 using namespace std;
+vector<string> T19 = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",\
+                       "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",\
+                        "sixteen", "seventeen", "eighteen", "ninteen" };
+vector<string> Tenmul = { "none", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+string English(long num)
+{
+    if (num >= 0 && num <= 19)
+    {
+        return T19[num];
+    }
+    if (num >= 20 && num <= 99)
+    {
+        if (num % 10 == 0)
+        {
+            return Tenmul[num];
+        }
+        return Tenmul[num / 10] + " " + T19[num % 10];
+    }
+    if (num >= 100 && num < 999)
+    {
+        if (num % 100 == 0)
+        {
+            return T19[num / 100] + " hundred";
+        }
+        return T19[num / 100] + " hundred and " + English(num % 100);
+    }
+    if (num >= 1000 && num <= 999999)
+    {
+        if (num % 1000 == 0)
+        {
+            return English(num / 1000) + " thousand";
+        }
+        return English(num / 1000) + " thousand " + English(num % 1000);
+    }
+    if (num >= 1000000 && num <= 999999999)
+    {
+        if (num % 1000000 == 0)
+        {
+            return English(num / 1000000) + " million";
+        }
+        return English(num / 1000000) + " million" + English(num % 1000000 / 1000) + " thousand " + English(num % 1000);
+    }
+    return
+}
 int main()
 {
-    
+    long num;
+    while (cin >> num)
+    {
+        cout << English(num) << endl;
+    }
     return 0;
 }
