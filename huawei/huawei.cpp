@@ -1686,61 +1686,603 @@
 //    return 0;
 //}
 
-//42.学英语：字符串、字典、STL、思维
+////42.学英语：字符串、字典、STL、思维
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//vector<string> T19 = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",\
+//                       "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",\
+//                        "sixteen", "seventeen", "eighteen", "ninteen" };
+//vector<string> Tenmul = { "none", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+//string English(long num)
+//{
+//    if (num >= 0 && num <= 19)
+//    {
+//        return T19[num];
+//    }
+//    if (num >= 20 && num <= 99)
+//    {
+//        if (num % 10 == 0)
+//        {
+//            return Tenmul[num];
+//        }
+//        return Tenmul[num / 10] + " " + T19[num % 10];
+//    }
+//    if (num >= 100 && num < 999)
+//    {
+//        if (num % 100 == 0)
+//        {
+//            return T19[num / 100] + " hundred";
+//        }
+//        return T19[num / 100] + " hundred and " + English(num % 100);
+//    }
+//    if (num >= 1000 && num <= 999999)
+//    {
+//        if (num % 1000 == 0)
+//        {
+//            return English(num / 1000) + " thousand";
+//        }
+//        return English(num / 1000) + " thousand " + English(num % 1000);
+//    }
+//    if (num >= 1000000 && num <= 999999999)
+//    {
+//        if (num % 1000000 == 0)
+//        {
+//            return English(num / 1000000) + " million";
+//        }
+//        return English(num / 1000000) + " million " + English(num % 1000000 / 1000) + " thousand " + English(num % 1000);
+//    }
+//    return "error";
+//}
+//int main()
+//{
+//    long num;
+//    while (cin >> num)
+//    {
+//        cout << English(num) << endl;
+//    }
+//    return 0;
+//}
+
+////43.迷宫问题：回溯法、深度优先遍历DFS、STL
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//struct list
+//{
+//    int x, y;
+//    struct list* next;
+//};
+//typedef struct list node;//
+//typedef node* link;//
+//link push(link path, int x, int y);
+//link pop(link path, int* x, int* y);
+//int checkExit(int x, int y, int ex, int ey);
+//link push(link path, int x, int y)
+//{
+//    link newnode;
+//    newnode = new node;
+//    if (!newnode)
+//    {
+//        cout << "Error:内存分配失败！" << endl;
+//        return NULL;
+//    }
+//    newnode->x = x;
+//    newnode->y = y;
+//    newnode->next = path;//
+//    path = newnode;
+//    return path;
+//}
+//link pop(link path, int* x, int* y)
+//{
+//    link top;
+//    if (path != NULL)
+//    {
+//        link temp = path;
+//        path = path->next;//
+//        *x = path->x;
+//        *y = path->y;
+//        delete temp;
+//        return path;
+//    }
+//    return path;
+//}
+////到达终点
+//int checkExit(int x, int y, int ex, int ey)
+//{
+//    if ((x == ex) && (y == ey))
+//    {
+//        return 1;
+//    }
+//    return 0;
+//}
+//int main()
+//{
+//    int row, col;
+//    while (cin >> row >> col)
+//    {
+//        int** a = new int* [row];//
+//        for (int i = 0; i < row; ++i)//
+//        {
+//            a[i] = new int[col];//
+//        }
+//        for (int i = 0; i < row; ++i)
+//        {
+//            for (int j = 0; j < col; ++j)
+//            {
+//                cin >> a[i][j];
+//            }
+//        }
+//        link path = NULL;
+//        int x = 0, y = 0;
+//        path = push(path, x, y);
+//        while (x < row && y < col)
+//        {
+//            a[x][y] = 2;
+//            //往上走
+//            if (x - 1 >= 0)
+//            {
+//                if (a[x - 1][y] == 0)
+//                {
+//                    x -= 1;
+//                    path = push(path, x, y);
+//                    continue;
+//                }
+//            }
+//            //往下走
+//            if (x + 1 < row)
+//            {
+//                if (a[x + 1][y] == 0)
+//                {
+//                    x += 1;
+//                    path = push(path, x, y);
+//                    continue;
+//                }
+//            }
+//            //往左走
+//            if (y - 1 >= 0)
+//            {
+//                if (a[x][y - 1] == 0)
+//                {
+//                    y -= 1;
+//                    path = push(path, x, y);
+//                    continue;
+//                }
+//            }
+//            //往右走
+//            if (y + 1 < col)
+//            {
+//                if (a[x][y + 1] == 0)
+//                {
+//                    y += 1;
+//                    path = push(path, x, y);
+//                    continue;
+//                }
+//            }
+//            //判断是否到达终点
+//            if (checkExit(x, y, row - 1, col -1) == 1)
+//            {
+//                break;
+//            }
+//            //倒退
+//            path = pop(path, &x, &y);
+//        }
+//        vector<string> result;
+//        while (path != NULL)
+//        {
+//            string p = "(" + to_string(path->x) + "," + to_string(path->y) + ")";
+//            result.push_back(p);
+//            path = path->next;//
+//        }
+//        for (int i = result.size() - 1; i >= 0; --i)
+//        {
+//            cout << result[i] << endl;
+//        }
+//    }
+//    return 0;
+//}
+
+////44.Sudoku数独：思维、数学、搜索、深度优先遍历DFS
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//bool ValidExist(vector<vector<int>> sudoku, int row, int col, int m)
+//{
+//    //判断所在行
+//    for (int k = 0; k < 9; k++)
+//    {
+//        if (sudoku[row][k] == m)
+//            return false;
+//    }
+//    //判断所在列
+//    for (int k = 0; k < 9; k++)
+//    {
+//        if (sudoku[k][col] == m)
+//            return false;
+//    }
+//    //判断所在3*3方阵
+//    int Lrow = row / 3 * 3;
+//    int Lcol = col / 3 * 3;
+//    for (int row = Lrow; row < Lrow + 3; ++row)
+//        for (int col = Lcol; col < Lcol + 3; ++col)
+//        {
+//            if (sudoku[row][col] == m)
+//                return false;
+//        }
+//    return true;
+//}
+//bool find(vector<vector<int>> sudoku, int &row, int &col)
+//{
+//    int i, j;
+//    while (row < 9 && col < 9)
+//    {
+//        if (sudoku[row][col] == 0)
+//            return true;
+//        else
+//        {
+//            col++;
+//            if (col == 9)
+//            {
+//                col = 0;
+//                row++;
+//            }
+//        }
+//    }
+//    return false;
+//}
+//bool DFS(vector<vector<int>> &sudoku, int row, int col)
+//{
+//    bool flag = false;
+//    if (col > 8)
+//    {
+//        col %= 9;
+//        row++;
+//    }
+//    //如果没有0点了，则表示完成了填充
+//    if (!find(sudoku, row, col))
+//        return true;
+//    //从1开始赋值，若填写某个数值后，其他0点位置无法找到合适值，则数值递进再次尝试
+//    for (int m = 1; m <= 9; m++)
+//    {
+//        if (ValidExist(sudoku, row, col, m))
+//        {
+//            sudoku[row][col] = m;
+//            flag = DFS(sudoku, row, col + 1);//
+//            if (flag == false)//
+//                continue;
+//            else
+//                return true;
+//        }
+//    }
+//    //若没有合适值，将当前位置置0，返回false，使上个填充数据再变换其他数值尝试
+//    if (flag == false)
+//    {
+//        sudoku[row][col] = 0;
+//        return false;
+//    }
+//}
+//int main()
+//{
+//    vector<vector<int>> sudoku(9, vector<int>(9, 0));
+//    for (int i = 0; i < 9; ++i)
+//        for (int j = 0; j < 9; ++j)
+//            cin >> sudoku[i][j];
+//    DFS(sudoku, 0, 0);//
+//    for (int i = 0; i < 9; ++i)
+//    {
+//        for (int j = 0; j < 9; ++j)
+//            cout << sudoku[i][j] << " ";
+//        cout << endl;
+//    }
+//    return 0;
+//}
+
+////45.名字的漂亮度：字符串、排序、STL
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		string name;
+//		vector<int> results;
+//		while (num--)
+//		{
+//			cin >> name;
+//			int sum = 0;
+//			int alpha[26] = { 0 };
+//			for (int i = 0; i < name.size(); i++)
+//			{
+//				if (name[i] >= 'a' && name[i] <= 'z')
+//				{
+//					alpha[name[i] - 'a']++;//
+//				}
+//				else
+//					alpha[name[i] - 'A']++;//
+//			}
+//			sort(alpha, alpha + 26);////
+//			int k = 26;
+//			for (int i = 25; i >= 0; --i)
+//			{
+//				sum += alpha[i] * k;
+//				k--;
+//			}
+//			results.push_back(sum);
+//		}
+//		for (auto it = results.begin(); it != results.end(); it++)
+//		{
+//			cout << *it << endl;
+//		}
+//	}
+//	return 0;
+//}
+
+////46.截取字符串：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	string s;
+//	int n;
+//	while (cin >> s >> n)
+//	{
+//		for (int i = 0; i < n; i++)
+//		{
+//			cout << s[i];
+//		}
+//		cout << endl;
+//	}
+//	return 0;
+//}
+
+////48.从单向链表中删除指定值的节点：静态链表
+//#include <iostream>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//	int n, head;
+//	int a[10000];
+//	while (cin >> n >> head)
+//	{
+//		fill(a, a + 10000, -1);
+//		a[0] = head;
+//		for (int i = 0; i < n; ++i)
+//		{
+//			int cur, pre;
+//			cin >> cur >> pre;
+//			int t = a[pre];//插入
+//			a[pre] = cur;
+//			a[cur] = t;
+//		}
+//		int del;
+//		cin >> del;
+//		int pHead = 0;//头结点
+//		int pcur = pHead;
+//		while (pcur != -1)
+//		{
+//			int t = a[pcur];
+//			if (t == del)//删除
+//				a[pcur] = a[t];
+//			else
+//				pcur = a[pcur];
+//		}
+//		//遍历输出
+//		pcur = pHead;
+//		while (a[pcur] != -1)
+//		{
+//			cout << a[pcur] << " ";
+//			pcur = a[pcur];
+//		}
+//		cout << endl;
+//	}
+//	return 0;
+//}
+
+////49.多线程：多线程、锁
+//#include <iostream>
+//#include <thread>
+//#include <mutex>
+//#include <string>
+//using namespace std;
+//string s;
+//mutex m;
+//bool finish = false; //控制运行情况
+//void thread1(int num)
+//{
+//	while (num)
+//	{
+//		if (m.try_lock())
+//		{
+//			int len = static_cast<int>(s.length());
+//			if (len % 4 == 0)
+//			{
+//				s += 'A';
+//				num--;
+//			}
+//			m.unlock();
+//		}
+//	}
+//	finish = true;//
+//}
+//void thread2()
+//{
+//	while (1)
+//	{
+//		if (m.try_lock())
+//		{
+//			int len = static_cast<int>(s.length());
+//			if (finish && len % 4 == 0)
+//			{
+//				m.unlock();
+//				return;
+//			}
+//			if (len % 4 == 1)
+//			{
+//				s += 'B';
+//			}
+//			m.unlock();
+//		}
+//	}
+//}
+//void thread3()
+//{
+//	while (1)
+//	{
+//		if (m.try_lock())
+//		{
+//			int len = static_cast<int>(s.length());
+//			if (finish && len % 4 == 0)//finish为true时线程无操作
+//			{
+//				m.unlock();
+//				return;
+//			}
+//			if (len % 4 == 2)
+//			{
+//				s += 'C';
+//			}
+//			m.unlock();
+//		}
+//	}
+//}
+//void thread4()
+//{
+//	while (1)
+//	{
+//		if (m.try_lock())
+//		{
+//			int len = static_cast<int>(s.length());
+//			if (finish && len % 4 == 0)
+//			{
+//				m.unlock();
+//				return;
+//			}
+//			if (len % 4 == 3)
+//			{
+//				s += 'D';
+//			}
+//			m.unlock();
+//		}
+//	}
+//}
+//int main()
+//{
+//	int in;
+//	while (cin >> in)
+//	{
+//		thread t1(thread1, in);
+//		thread t2(thread2);
+//		thread t3(thread3);
+//		thread t4(thread4);
+//		t1.join();
+//		t2.join();
+//		t3.join();
+//		t4.join();
+//		cout << s << endl;
+//		s.clear();
+//		finish = false;
+//	}
+//	return 0;
+//}
+
+////50.四则运算：字符串、数学、栈
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//int Calculation(string expr, int start, int end)
+//{
+//	if ((expr[start] == '(' || expr[start] == '[' || expr[start] == '{') && 
+//		(expr[end - 1] == ')' || expr[end - 1] == ']' || expr[end - 1] == '}'))
+//	{
+//		vector<int> vec;
+//		for (int i = start; i < end - 1; ++i)
+//		{
+//			if (expr[i] == '(' || expr[i] == '[' || expr[i] == '{')
+//				vec.push_back(i);
+//			else if (expr[i] == ')' || expr[i] == ']' || expr[i] == '}')
+//				vec.pop_back();
+//		}
+//		if (vec.back() == start)
+//		{
+//			++start;
+//			--end;
+//		}
+//	}
+//	int layer = 0, am = 0, md = 0;
+//	bool flag = false; //判断是否有内置括号
+//	//
+//	for (int i = start; i < end; ++i)
+//	{
+//		if (expr[i] == '(' || expr[i] == '[' || expr[i] == '{')
+//		{
+//			++layer;
+//			flag = true;
+//		}
+//		else if (expr[i] == ')' || expr[i] == ']' || expr[i] == '}')
+//		{
+//			--layer;
+//			flag = true;
+//		}
+//		else if ((expr[i] == '+' || expr[i] == '-') && !layer)
+//			am = i;
+//		else if ((expr[i] == '*' || expr[i] == '/') && !layer)
+//			md = i;
+//	}
+//	if (am > start)
+//	{
+//		if (expr[am] == '+')
+//			return Calculation(expr, start, am) + Calculation(expr, am + 1, end);
+//		else
+//			return Calculation(expr, start, am) - Calculation(expr, am + 1, end);
+//	}
+//	else if (md > start)
+//	{
+//		if (expr[md] == '*')
+//			return Calculation(expr, start, end) * Calculation(expr, md + 1, end);
+//		else
+//			return Calculation(expr, start, end) / Calculation(expr, md + 1, end);
+//	}
+//	else if (flag)
+//	{
+//		return Calculation(expr, start + 1, end - 1);
+//	}
+//	else
+//		return stoi(expr.substr(start, end - start));
+//}
+//int main()
+//{
+//	string str;
+//	while (cin >> str)
+//	{
+//		cout << Calculation(str, 0, str.size()) << endl;
+//	}
+//	return 0;
+//}
+
+//51.输出单向链表中倒数第k个结点：链表、查找
 #include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
-vector<string> T19 = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",\
-                       "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",\
-                        "sixteen", "seventeen", "eighteen", "ninteen" };
-vector<string> Tenmul = { "none", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
-string English(long num)
-{
-    if (num >= 0 && num <= 19)
-    {
-        return T19[num];
-    }
-    if (num >= 20 && num <= 99)
-    {
-        if (num % 10 == 0)
-        {
-            return Tenmul[num];
-        }
-        return Tenmul[num / 10] + " " + T19[num % 10];
-    }
-    if (num >= 100 && num < 999)
-    {
-        if (num % 100 == 0)
-        {
-            return T19[num / 100] + " hundred";
-        }
-        return T19[num / 100] + " hundred and " + English(num % 100);
-    }
-    if (num >= 1000 && num <= 999999)
-    {
-        if (num % 1000 == 0)
-        {
-            return English(num / 1000) + " thousand";
-        }
-        return English(num / 1000) + " thousand " + English(num % 1000);
-    }
-    if (num >= 1000000 && num <= 999999999)
-    {
-        if (num % 1000000 == 0)
-        {
-            return English(num / 1000000) + " million";
-        }
-        return English(num / 1000000) + " million" + English(num % 1000000 / 1000) + " thousand " + English(num % 1000);
-    }
-    return "error";
-}
 int main()
 {
-    long num;
-    while (cin >> num)
-    {
-        cout << English(num) << endl;
-    }
-    return 0;
+	string s;
+	int n;
+	while (cin >> s >> n)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			cout << s[i];
+		}
+		cout << endl;
+	}
+	return 0;
 }
