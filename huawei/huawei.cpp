@@ -2268,21 +2268,790 @@
 //	return 0;
 //}
 
-//51.输出单向链表中倒数第k个结点：链表、查找
+////51.输出单向链表中倒数第k个结点：链表、查找
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//struct ListNode
+//{
+//	int m_nKey;
+//	ListNode* m_pNext;
+//	ListNode(int x) : m_nKey(x), m_pNext(nullptr) {};
+//};
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		ListNode* head = new ListNode(-1);
+//		ListNode* p = head;
+//		for (int i = 0; i < num; ++i)
+//		{
+//			int t;
+//			cin >> t;
+//			ListNode* tp = new ListNode(t);
+//			tp->m_pNext = nullptr;
+//			p->m_pNext = tp;
+//			p = tp;
+//		}
+//		int target;
+//		cin >> target;
+//		if (target <= 0 || target > num)
+//		{
+//			cout << 0 << endl;
+//			continue;
+//		}
+//		for (int i = 0; i < num - target + 1; ++i)
+//			head = head->m_pNext;
+//		cout << head->m_nKey << endl;
+//	}
+//	return 0;
+//}
+
+////52.计算字符串的距离：动态规划、字符串、图
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int getMin(int a, int b, int c)
+//{
+//	a = min(a, b);
+//	b = min(b, c);
+//	return min(a, b);
+//}
+//int Levenshiein(string a, string b)
+//{
+//	a.insert(0, 1, ' ');//开头创建空格，建立二分图
+//	b.insert(0, 1, ' ');
+//	int n = a.size();
+//	int m = b.size();
+//	int k;
+//	//int L[n][m];//不能用非常量定义数组
+//	int** L = new int* [n];//
+//	for (int i = 0; i < n; ++i)//
+//	{
+//		L[i] = new int[m];
+//	}
+//	for (int i = 0; i < n; ++i)
+//		L[i][0] = i;
+//	for (int i = 0; i < m; ++i)
+//		L[0][i] = i;
+//	for (int i = 1; i < n; ++i)//从1，1开始动态计算
+//		for (int j = 1; j < m; ++j)
+//		{
+//			if (a[i] == b[j])
+//				k = 0;
+//			else
+//				k = 1;
+//			L[i][j] = getMin(L[i][j - 1] + 1, L[i - 1][j] + 1, L[i - 1][j - 1] + k);//3种情况
+//		}
+//	return L[n - 1][m - 1];//
+//}
+//int main()
+//{
+//	string a, b;
+//	while (cin >> a >> b)
+//	{
+//		cout << Levenshiein(a, b) << endl;
+//	}
+//	return 0;
+//}
+
+////53.杨辉三角的变形：数学、字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		int row = num;
+//		int col = 2 * num - 1;
+//		int** L = new int* [row];
+//		for (int i = 0; i < row; ++i)
+//		{
+//			L[i] = new int[col];
+//		}
+//		for (int j = 0; j < col; ++j)
+//		{
+//			L[0][j] = 0;
+//		}
+//		L[0][row - 1] = 1;
+//		//计算杨辉三角的每个元素大小
+//		for (int i = 0; i < row; ++i)
+//		{
+//			for (int j = 1; j < col - 1; ++j)
+//			{
+//				L[i][j] = L[i - 1][j - 1] + L[i - 1][j] + L[i - 1][j + 1];
+//			}
+//			L[i][0] = L[i - 1][0] + L[i - 1][1];
+//			L[i][col - 1] = L[i - 1][col - 1] + L[i - 1][col - 2];
+//		}
+//		bool getresult = false;
+//		for (int j = 0; j < col; ++j)
+//		{
+//			if (L[row - 1][j] % 2 == 0)
+//			{
+//				cout << j + 1 << endl;
+//				getresult = true;
+//				break;//
+//			}
+//		}
+//		if (!getresult)//
+//			cout << "-1" << endl;
+//	}
+//	return 0;
+//}
+
+////53.表达式求值：字符串、数学、栈
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//vector<char> sheet = { '+','-','*','/','(',')','0','1','2','3','4','5','6','7','8','9' };
+//bool check(string s)
+//{
+//	int left = 0;
+//	int right = 0;
+//	for (int i = 0; i < s.size(); ++i)
+//	{
+//		bool isok = false;
+//		for (int j = 0; j < sheet.size(); ++j)
+//		{
+//			if (s[i] == '(')
+//				left++;
+//			if (s[i] == ')')
+//				right++;
+//			if (s[i] == sheet[j])
+//				isok = true;
+//		}
+//		if (!isok)
+//			return false;
+//	}
+//	if (left != right)//左右括号数不相等
+//		return false;
+//	return true;
+//}
+//int calculate(string &s, int start, int end)
+//{
+//	if (s[start] == '(' && s[end - 1] == ')')
+//	{
+//		start++;
+//		end--;
+//	}
+//	int layer = 0, am = 0, md = 0;
+//	bool flag = false;
+//	for (int i = start; i < end; ++i)
+//	{
+//		if (s[i] == '(')
+//		{
+//			++layer;
+//			flag = true;
+//		}
+//		if (s[i] == ')')
+//		{
+//			--layer;
+//			flag = true;
+//		}
+//		else if (s[i] == '+' || s[i] == '-')
+//			am = i;
+//		else if (s[i] == '*' || s[i] == '/')
+//			md = i;
+//	}
+//	if (am > start)
+//	{
+//		if (s[am] == '+')
+//			return calculate(s, start, am) + calculate(s, am + 1, end);
+//		else
+//			return calculate(s, start, am) - calculate(s, am + 1, end);
+//	}
+//	if (md > start)
+//	{
+//		if (s[md] == '*')
+//			return calculate(s, start, md) * calculate(s, md, end);
+//		else
+//			return calculate(s, start, md) / calculate(s, md, end);
+//	}
+//	else if (flag)
+//		return calculate(s, start + 1, end - 1);
+//	else
+//		return stoi(s.substr(start, end - start));//
+//}
+//int main()
+//{
+//	string s;
+//	while (cin >> s)
+//	{
+//		if (!check(s))
+//			cout << -1 << endl;
+//		else
+//			cout << calculate(s, 0, s.size()) << endl;
+//	}
+//	return 0;
+//}
+
+////55.挑7：数学、穷举
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int statistic(int n)
+//{
+//	int result = 0;
+//	for (int i = 7; i <= n; ++i)
+//	{
+//		int tmp = i;
+//		if (i % 7 == 0)
+//			result++;
+//		else
+//		{
+//			while (tmp != 0)
+//			{
+//				if (tmp % 10 == 7)
+//				{
+//					result++;
+//					break;
+//				}
+//				tmp /= 10;
+//			}
+//		}
+//	}
+//	return result;
+//}
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		cout << statistic(num) << endl;
+//	}
+//	return 0;
+//}
+
+////56.完全数计算：数学、提速、数组
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//int a[500000] = { 0 };
+//bool isPerfect(int n)
+//{
+//	vector<int> result;
+//	result.push_back(1);
+//	//计算n的所有因子
+//	for (int i = 2; i <= n / 2; ++i)
+//	{
+//		if (n % i == 0)
+//			result.push_back(i);
+//	}
+//	int sum = 0;
+//	for (int it = 0; it < result.size(); ++it)
+//		sum += result[it];
+//	if (sum == n)
+//	{
+//		a[n] = a[n - 1] + 1;//增加一个完美数
+//		return true;
+//	}
+//	else
+//	{
+//		a[n] = a[n - 1];//完美数个数不变
+//	}
+//	return false;
+//}
+//int statistic(int n)
+//{
+//	if (a[n] != 0)
+//		return a[n];
+//	int size = 0;
+//	for (int i = 6; i < n; ++i)
+//	{
+//		if (isPerfect(i))
+//			size++;
+//	}
+//	return size;
+//}
+//int main()
+//{
+//	int number;
+//	while (cin >> number)
+//	{
+//		cout << statistic(number) << endl;
+//	}
+//	return 0;
+//}
+
+////57.高精度整数加法：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//string add(string s1, string s2)
+//{
+//	string result, Long, Short;
+//	if (s1.size() > s2.size())
+//	{
+//		Long = s1;
+//		Short = s2;
+//	}
+//	else
+//	{
+//		Long = s2;
+//		Short = s1;
+//	}
+//	int j = Short.size() - 1;
+//	bool carry = false; //进位符
+//	for (int i = Long.size() - 1; i >= 0; --i)
+//	{
+//		//加法阶段
+//		if (j >= 0)
+//		{
+//			int temp;
+//			if (carry)
+//			{
+//				temp = int(Long[i] - '0') + int(Short[j] - '0') + 1;
+//			}
+//			else {
+//				temp = int(Long[i] - '0') + int(Short[j] - '0');
+//			}
+//			if (temp < 10)
+//			{
+//				result = char(temp + '0') + result;
+//				carry = false;
+//			}
+//			else {
+//				carry = true;
+//				temp -= 10;
+//				result = char(temp + '0') + result;
+//			}
+//		}
+//		//进位阶段
+//		else if (carry)
+//		{
+//			int temp = int(Long[i] - '0') + 1;
+//			if (temp < 10)
+//			{
+//				result = char(temp + '0') + result;
+//				carry = false;
+//			}
+//			else {
+//				carry = true;
+//				temp -= 10;
+//				result = char(temp + '0') + result;
+//			}
+//		}
+//		else {
+//			result = char(Long[i]) + result;
+//		}
+//		--j;//
+//	}
+//	// 判断最后结果是否有进位
+//	if (carry)
+//	{
+//		result = "1" + result;
+//	}
+//	return result;
+//}
+//int main()
+//{
+//	string s1, s2;
+//	while (cin >> s1 >> s2)
+//	{
+//		cout << add(s1, s2) << endl;
+//	}
+//	return 0;
+//}
+
+////58.输入n个整数，输出其中最小的k个：数组、需求分析、排序
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//	int n, k;
+//	while (cin >> n >> k)
+//	{
+//		vector<int> v;
+//		for (int i = 0; i < n; ++i)
+//		{
+//			int a;
+//			cin >> a;
+//			v.push_back(a);
+//		}
+//		sort(v.begin(), v.end());
+//		for (int j = 0; j < k; j++)
+//		{
+//			cout << v[j] << " ";
+//		}
+//		cout << endl;
+//	}
+//	return 0;
+//}
+
+////59.找出字符串中第一个只出现一次的字符：字符串、STL
+//#include <iostream>
+//#include <string>
+//#include <map>
+//using namespace std;
+//int main()
+//{
+//	string s;
+//	while (cin >> s)
+//	{
+//		map<char, int> m;
+//		bool isFind = false;
+//		for (int i = 0; i < s.size(); ++i)
+//		{
+//			m[s[i]]++;
+//		}
+//		for (auto t = m.begin(); t != m.end(); ++t)
+//		{
+//			if (t->second == 1)
+//			{
+//				cout << t->first << endl;
+//				isFind = true;
+//			}
+//		}
+//		if (!isFind)
+//			cout << "-1" << endl;
+//	}
+//	return 0;
+//}
+
+////60.查找组成一个偶数最接近的两个素数：查找、数学、穷举
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//bool isPrime(int n)
+//{
+//	for (int i = 2; i < n; ++i)
+//	{
+//		if (n % i == 0)
+//			return false;
+//	}
+//	return true;
+//}
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		vector<int> primes;
+//		for (int i = 2; i < num; ++i)
+//		{
+//			if (isPrime(i))
+//				primes.push_back(i);
+//		}
+//		pair<int, int> result;//
+//		int min = 9999;
+//		for (int i = 0; i < primes.size(); ++i)
+//			for (int j = i; j < primes.size(); ++j)
+//			{
+//				if ((primes[i] + primes[j] == num) && (primes[j] - primes[i] < min))
+//				{
+//					result.first = i;
+//					result.second = j;
+//					min = primes[j] - primes[i];
+//				}
+//			}
+//		cout << primes[result.first] << endl;
+//		cout << primes[result.second] << endl;
+//	}
+//	return 0;
+//}
+
+////61.放苹果：递归、动态规划
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//int func(int a, int d)
+//{
+//	if (a <= 0 || d <= 0)
+//		return 0;
+//	else if (a == 1 || d == 1)
+//		return 1;
+//	else if (a == d)
+//		return func(a, d - 1) + func(a - d, d) + 1;//
+//	else
+//		return func(a, d - 1) + func(a - d, d);//
+//}
+//int main()
+//{
+//	int apples, dishes;
+//	while (cin >> apples >> dishes)
+//	{
+//		int result = func(apples, dishes);
+//		cout << result << endl;
+//	}
+//	return 0;
+//}
+
+////62.查找输入整数二进制中1的个数：位运算
+//#include <iostream>
+//using namespace std;
+//int CountOne(int num)
+//{
+//	int cnt = 0;
+//	while (num)
+//	{
+//		if (num % 2 == 1)
+//			cnt++;
+//		num >>= 1;
+//	}
+//	return cnt;
+//}
+//int main()
+//{
+//	int number;
+//	while (cin >> number)
+//	{
+//		cout << CountOne(number) << endl;
+//	}
+//	return 0;
+//}
+
+////63.DNA序列：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	string str;
+//	int length;
+//	while (cin >> str >> length)
+//	{
+//		int size = str.size();
+//		float max = 0.f;//
+//		string result;
+//		for (int i = 0; i < size - length + 1; ++i)//
+//		{
+//			string t = str.substr(i, length);//
+//			float sum = 0.f;
+//			for (int j = 0; j < t.size(); ++j)
+//			{
+//				if (t[j] == 'G' || t[j] == 'C')
+//					sum++;
+//			}
+//			float R = float(sum / t.size());
+//			if (R > max)
+//			{
+//				max = R;
+//				result = t;
+//			}
+//		}
+//		cout << result << endl;
+//	}
+//	return 0;
+//}
+
+////64.MP3光标位置：数组、思维
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		string op;
+//		cin >> op;
+//		vector<int> list(num);
+//		for (int i = 0; i < num; ++i)
+//			list[i] = i + 1;
+//		int pos = 0, head = 0;
+//		int size = op.size();
+//		for (int i = 0; i < size; ++i)
+//		{
+//			if (op[i] == 'U')
+//			{
+//				pos--;
+//				//一般翻页
+//				if (head > pos)
+//					head = pos;
+//				//特殊翻页
+//				if (pos < 0)
+//				{
+//					pos = list[num - 1] - 1;
+//					head = list[num - 1] - 4;
+//				}
+//			}
+//			else if (op[i] == 'D')
+//			{
+//				pos++;
+//				//一般翻页
+//				if (pos > (head + 3))
+//					head = pos - 3;
+//				//特殊翻页
+//				if (pos > (list[num - 1] - 1))
+//				{
+//					pos = 0;
+//					head = 0;
+//				}
+//			}
+//		}
+//		//歌曲总数小于4
+//		if (num <= 4)
+//			head = 0;
+//		//打印当前列表
+//		for (int i = head; i < (head + 4); ++i)
+//		{
+//			if (i < num)
+//				cout << list[i] << " ";
+//		}
+//		cout << endl << list[pos] << endl;
+//	}
+//	return 0;
+//}
+
+////65.查找两个字符串a,b中的最长公共子串：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//string getresult(string s1, string s2)
+//{
+//	int lsize = s1.size();
+//	int ssize = s2.size();
+//	string result;
+//	for (int i = ssize; i >= 0; --i)
+//	{
+//		for (int j = 0; j < (ssize - i + 1); ++j)
+//		{
+//			string temp = s2.substr(j, i);
+//			int id = s1.find(temp);
+//			if (id != string::npos)
+//				return temp;
+//		}
+//	}
+//	return "";
+//}
+//int main()
+//{
+//	string s1, s2;
+//	while (cin >> s1 >> s2)
+//	{
+//		string Long, Short;
+//		if (s1.size() > s2.size())
+//		{
+//			Long = s1;
+//			Short = s2;
+//		}
+//		else {
+//			Long = s2;
+//			Short = s1;
+//		}
+//		cout << getresult(Long, Short) << endl;
+//	}
+//	return 0;
+//}
+
+////66.配置文件恢复：字符串、字典
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//vector<string> cmd1 = { "reset", "reset", "board", "board", "reboot", "backplane" };
+//vector<string> cmd2 = { "none", "board", "add", "delet", "backplane", "abort" };
+//int main()
+//{
+//	string str;
+//	while (getline(cin, str))
+//	{
+//		int size = str.size();
+//		if (str == "")
+//		{
+//			continue;
+//		}
+//		if (size > 16)
+//		{
+//			cout << "unknown command" << endl;
+//			continue;
+//		}
+//		bool isOne = true;
+//		int pos = 0;
+//		for (int i = 0; i < size; ++i)
+//		{
+//			if (str[i] == ' ')//
+//			{
+//				isOne = false;
+//				pos = i;
+//				break;
+//			}
+//		}
+//		if (isOne)
+//		{
+//			if (str == cmd1[0].substr(0, size))
+//			{
+//				cout << "reset what" << endl;
+//			}
+//			else {
+//				cout << "unknown command" << endl;
+//			}
+//		}
+//		else {
+//			int num = 0, id;
+//			for (int i = 1; i < 6; ++i)
+//			{
+//				if ((str.substr(0, pos) == cmd1[i].substr(0, pos)) &&
+//					(str.substr(pos + 1, size - pos - 1) == cmd2[i].substr(0, size - pos - 1)))
+//				{
+//					num++;
+//					id = i;
+//				}
+//			}
+//			 if(num==1)
+//            {
+//                switch(id){
+//                    case 1:cout<<"board fault"<<endl;break;
+//                    case 2:cout<<"where to add"<<endl;break;
+//                    case 3:cout<<"no board at all"<<endl;break;
+//                    case 4:cout<<"impossible"<<endl;break;
+//                    case 5:cout<<"install first"<<endl;break;
+//                    default:break;
+//                }
+//            }
+//			else {
+//				cout << "unknow command" << endl;
+//			}
+//		}
+//	}
+//	return 0;
+//}
+
+//67.24点游戏算法：深度优先遍历DFS、搜索
 #include <iostream>
-#include <string>
+#include <algorithm>
+#include <vector>
+#include <cmath>
 using namespace std;
+bool cal24(vector<double> a, vector<int> o)
+{
+
+}
 int main()
 {
-	string s;
-	int n;
-	while (cin >> s >> n)
+	double a[4];
+	int o[3];
+	while (cin >> a[0] >> a[1] >> a[2] >> a[3])
 	{
-		for (int i = 0; i < n; i++)
-		{
-			cout << s[i];
-		}
-		cout << endl;
+		bool flag = false;
+		sort(a, a + 4);
+		do {
+			for (int i = 0; i < 4 && !flag; ++i)
+			{
+				o[0] = i;
+				for (int j = 0; j < 4 && !flag; ++j)
+				{
+					o[1] = j;
+					for (int k = 0; k < 4 && !flag; ++k)
+					{
+						o[2] = k;
+						vector<double> va(a, a + 4);
+						vector<int> vo(o, o + 3);
+						if (cal24(va, vo)) flag = true;
+					}
+				}
+			}
+		} while (next_permutation(a, a + 4) && !flag);
+		if (flag) cout << "true" << endl;
+		else cout << "false" << endl;
 	}
 	return 0;
 }

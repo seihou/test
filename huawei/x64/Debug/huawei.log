@@ -1,2 +1,4 @@
 ﻿  huawei.cpp
+C:\workplace\c++\test\huawei\huawei.cpp(2957,24): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\workplace\c++\test\huawei\huawei.cpp(2958,17): warning C4390: “;”: 找到空的受控语句；这是否是有意的?
   huawei.vcxproj -> C:\workplace\c++\test\huawei\x64\Debug\huawei.exe
