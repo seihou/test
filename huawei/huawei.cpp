@@ -3015,43 +3015,587 @@
 //	return 0;
 //}
 
-//67.24点游戏算法：深度优先遍历DFS、搜索
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <cmath>
-using namespace std;
-bool cal24(vector<double> a, vector<int> o)
-{
+////67.24点游戏算法：深度优先遍历DFS、搜索
+//#include <iostream>
+//#include <algorithm>
+//#include <vector>
+//#include <cmath>
+//using namespace std;
+//double op(double a, double b, int opera)
+//{
+//	if (opera == 0) return a + b;
+//	else if (opera == 1) return a - b;
+//	else if (opera == 2) return a * b;
+//	else if (opera == 3) return a / b;
+//	return 0;
+//}
+//bool cal24(vector<double> a, vector<int> o)
+//{
+//	bool flag = false;
+//	if (o.empty())
+//	{
+//		if (fabs(a[0] - 24.0) < 0.01) flag = true;
+//	}
+//	else {
+//		for (int i = 0; i < o.size() && !flag; i++)
+//		{
+//			a[i] = op(a[i], a[i + 1], o[i]);
+//			a.erase(a.begin() + i + 1);//删除a[i + 1]
+//			o.erase(o.begin() + i);//删除o[i]
+//			flag |= cal24(a, o);//递归调用
+//		}
+//	}
+//	return flag;
+//}
+//int main()
+//{
+//	double a[4];//4个操作数
+//	int o[3];//3个运算符
+//	while (cin >> a[0] >> a[1] >> a[2] >> a[3])
+//	{
+//		bool flag = false;
+//		sort(a, a + 4);
+//		do {
+//			for (int i = 0; i < 4 && !flag; ++i)
+//			{
+//				o[0] = i;
+//				for (int j = 0; j < 4 && !flag; ++j)
+//				{
+//					o[1] = j;
+//					for (int k = 0; k < 4 && !flag; ++k)
+//					{
+//						o[2] = k;
+//						vector<double> va(a, a + 4);
+//						vector<int> vo(o, o + 3);
+//						if (cal24(va, vo)) flag = true;
+//					}
+//				}
+//			}
+//		} while (next_permutation(a, a + 4) && !flag);//下一个全排列
+//		if (flag) cout << "true" << endl;
+//		else cout << "false" << endl;
+//	}
+//	return 0;
+//}
 
-}
+////68.成绩排序：排序、STL
+//#include <iostream>
+//#include <algorithm>
+//#include <vector>
+//using namespace std;
+//int main()
+//{
+//	int number, flag;
+//	while (cin >> number >> flag)
+//	{
+//		vector<pair<string, int>> student;//
+//		for (int i = 0; i < number; ++i)
+//		{
+//			pair<string, int> temp;
+//			cin >> temp.first;
+//			cin >> temp.second;
+//			student.push_back(temp);
+//		}
+//		if (flag)
+//		{
+//			stable_sort(student.begin(), student.end(),
+//				[](const pair<string, int>& v1, const pair<string, int>& v2) { return v1.second < v2.second; });
+//		}
+//		else {
+//			stable_sort(student.begin(), student.end(),
+//				[](const pair<string, int>& v1, const pair<string, int>& v2) { return v1.second > v2.second; });
+//		}
+//		for (auto it = student.begin(); it != student.end(); ++it)
+//		{
+//			cout << it->first << " " << it->second << endl;
+//		}
+//	}
+//	return 0;
+//}
+
+////69.矩阵乘法：数组
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//vector<vector<int>> calcMatrix(vector<vector<int>> A, vector<vector<int>> B, int x, int z)
+//{
+//	vector<vector<int>> R(x, vector<int>(z, 0));//
+//	for (int i = 0; i < x; ++i)
+//		for (int j = 0; j < z; ++j)
+//		{
+//			int sum = 0;
+//			for (int m = 0, n = 0; m < A[i].size(), n < B.size(); ++m, ++n) //A[i].size()是A的列数，B.size()是B的行数
+//			{
+//				sum += A[i][m] * B[n][j];
+//			}
+//			R[i][j] = sum;
+//		}
+//	return R;
+//}
+//int main()
+//{
+//	int x, y, z;
+//	while (cin >> x >> y >> z)
+//	{
+//		vector<vector<int>> A(x, vector<int>(y, 0));
+//		vector<vector<int>> B(y, vector<int>(z, 0));
+//		for (int i = 0; i < x; ++i)
+//			for (int j = 0; j < y; ++j)
+//				cin >> A[i][j];
+//		for (int i = 0; i < y; ++i)
+//			for (int j = 0; j < z; ++j)
+//				cin >> B[i][j];
+//		vector<vector<int>> result = calcMatrix(A, B, x, z);
+//		for (int i = 0; i < x; ++i)
+//		{
+//			for (int j = 0; j < z; ++j)
+//				cout << result[i][j] << " ";
+//			cout << endl;
+//		}
+//	}
+//	return 0;
+//}
+
+////70.矩阵乘法计算量估算：字符串、STL
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//int* Estimate(int* t1, int* t2, int& sum)
+//{
+//	int t1_row = t1[0];
+//	int t1_col = t1[1];
+//	int t2_row = t2[0];
+//	int t2_col = t2[1];
+//	sum = t1_row * t1_col * t2_col;
+//	int* t3 = new int[2];
+//	t3[0] = t1_row;
+//	t3[1] = t2_col;
+//	return t3;
+//}
+//int calc(vector<int*> &m)
+//{
+//	int* t1;
+//	int* t2;
+//	int* t3;
+//	int sum = 0;
+//	t2 = m.back();
+//	m.pop_back();
+//	t1 = m.back();
+//	m.pop_back();
+//	t3 = Estimate(t1, t2, sum);
+//	m.push_back(t3);
+//	return sum;
+//}
+//int solution(int* L[2], string str)
+//{
+//	vector<int*> m;
+//	int size = str.size();
+//	int sum = 0;
+//	int k = 0;
+//	for (int i = 0; i < size; ++i)
+//	{
+//		if (str[i] == ')')
+//		{
+//			sum += calc(m);
+//		}
+//		else if (str[i] >= 'A' && str[i] <= 'Z')
+//		{
+//			m.push_back(L[k]);
+//			k++;
+//		}
+//		//如果是'('就跳过
+//	}
+//	while (m.size() > 1)//
+//	{
+//		sum += calc(m);
+//	}
+//	return sum;
+//}
+//int main()
+//{
+//	int number;
+//	while (cin >> number)
+//	{
+//		int** L = new int* [number];
+//		for (int i = 0; i < number; ++i)
+//		{
+//			L[i] = new int[2];
+//			cin >> L[i][0];
+//			cin >> L[i][1];
+//		}
+//		string str;
+//		cin >> str;
+//		cout << solution(L, str) << endl;
+//		delete[] L;//
+//	}
+//	return 0;
+//}
+
+////71.字符串通配符：字符串、动态规划、递归、表
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//bool isOk(char c)
+//{
+//	return (isalpha(c) || isalnum(c) || c == '.');
+//}
+//bool Match(string s1, string s2)
+//{
+//	int m = s1.size();
+//	int n = s2.size();
+//	vector<vector<bool>> v(m + 1, vector<bool>(n + 1, false));
+//	v[0][0] = true;//
+//	for (int i = 1; i <= m; ++i)
+//	{
+//		v[i][0] = v[i - 1][0] && (s1[i - 1] == '*');//
+//		for (int j = 1; j <= n; ++j)
+//		{
+//			if (s1[i - 1] == '*')
+//			{
+//				if (isOk(s2[j - 1]))//匹配多个字符
+//					v[i][j] = v[i - 1][j - 1];
+//			}
+//			else {
+//				if (tolower(s1[i - 1]) == tolower(s2[j - 1]))//字母匹配
+//					v[i][j] = v[i - 1][j - 1];
+//				if (s1[i - 1] == '?' && isOk(s2[j - 1]))//？匹配1个字符
+//					v[i][j] = v[i - 1][j - 1];
+//			}
+//		}
+//	}
+//	return v[m][n];
+//}
+//int main()
+//{
+//	string s1, s2;
+//	while (cin >> s1 >> s2)
+//	{
+//		if (Match(s1, s2)) {
+//			cout << "true" << endl;
+//		} else {
+//			cout << "false" << endl;
+//		}
+//	}
+//	return 0;
+//}
+
+////72.百钱买百鸡问题：查找、数学
+//#include <iostream>
+//#include <vector>
+//#include <list>//
+//using namespace std;
+//int GetResult(vector<list<int>> &result)
+//{
+//	for (int i = 0; i <= 3; ++i)
+//	{
+//		list<int> temp;
+//		temp.push_back(4 * i);//公鸡
+//		temp.push_back(25 - 7 * i);//母鸡
+//		temp.push_back(75 + 3 * i);//小鸡
+//		result.push_back(temp);
+//	}
+//	if (result.empty())
+//		return -1;
+//	else
+//		return 0;
+//}
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		vector<list<int>> result;
+//		if (GetResult(result) == 0)
+//		{
+//			for (auto i = 0; i < result.size(); ++i)
+//			{
+//				while (!result[i].empty())
+//				{
+//					cout << *(result[i].begin()) << " ";//
+//					result[i].pop_front();//pop_front
+//				}
+//				cout << endl;
+//			}
+//		}
+//		result.clear();
+//	}
+//	return 0;
+//}
+
+////73.计算日期到天数转换：字符串、思维、字典
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	int year, month, day;
+//	while (cin >> year >> month >> day)
+//	{
+//		bool flag = (year % 4 == 0 && year % 100 != 0) ? true : false;//判断闰年
+//		vector<int> month1 = { 31, 28, 31, 30 ,31, 30, 31, 31, 30, 31, 30, 31 };
+//		vector<int> month2 = { 31, 29, 31, 30 ,31, 30, 31, 31, 30, 31, 30, 31 };//闰年
+//		int sum = 0;
+//		for (int i = 0; i < (month - 1); ++i)
+//		{
+//			if (flag)
+//				sum += month2[i];
+//			else
+//				sum += month1[i];
+//		}
+//		sum += day;
+//		cout << sum << endl;
+//	}
+//	return 0;
+//}
+
+////74.参数解析：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	string input;
+//	while (getline(cin, input))
+//	{
+//		int count = 0;
+//		for (int i = 0; i < input.size(); ++i)
+//		{
+//			if (input[i] == '"')//忽略""间的空格
+//			{
+//				++i;
+//				while (input[i] != '"')
+//					++i;
+//			}
+//			if (input[i] == ' ')
+//				++count;
+//		}
+//		cout << count + 1 << endl;
+//		for (int i = 0; i < input.size(); ++i)
+//		{
+//			if (input[i] == '"')
+//			{
+//				++i;
+//				while (input[i] != '"')
+//					++i;
+//			}
+//			if (input[i] != ' ')
+//			{
+//				cout << input[i];
+//			}
+//			else {
+//				cout << endl;
+//			}
+//		}
+//	}
+//	return 0;
+//}
+
+////75.公共子串计算：动态规划、STL
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//int main()
+//{
+//	string s1, s2;
+//	while (cin >> s1 >> s2)
+//	{
+//		vector<vector<int>> m(s1.size() + 1, vector<int>(s2.size() + 1, 0));//包含无字符0,1,2,...,size()所以是size() + 1
+//		int max = 0;
+//		for (int i = 1; i <= s1.size(); ++i)
+//		{
+//			for (int j = 1; j <= s2.size(); ++j)
+//			{
+//				if (s1[i - 1] == s2[j - 1])
+//				{
+//					m[i][j] = m[i - 1][j - 1] + 1;
+//					if (m[i][j] > max)
+//						max = m[i][j];
+//				}
+//			}
+//		}
+//		cout << max << endl;
+//	}
+//	return 0;
+//}
+
+////76.尼科彻斯定理：数学
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		int sum = num * (num - 1) / 2;
+//		vector<int> result;
+//		for (int k = 0; k < num; ++k)
+//		{
+//			if (k != num - 1)
+//				cout << 2 * (sum + k) + 1 << "+";
+//			else
+//				cout << 2 * (sum + k) + 1 << endl;
+//		}
+//	}
+//	return 0;
+//}
+
+////77.火车进站：栈、递归
+//#include <iostream>
+//#include <vector>
+//#include <queue>//
+//#include <stack>//
+//#include <algorithm>
+//#include <string>
+//using namespace std;
+//vector<string> result;
+//void write_result(queue<int> q)
+//{
+//	string str;
+//	while (!q.empty())
+//	{
+//		str += to_string(q.front());
+//		str += ' ';
+//		q.pop();
+//	}
+//	result.push_back(str);
+//}
+//void solve(queue<int> in, stack<int> st, queue<int> out, bool flag)
+//{
+//	if (in.empty()) //in队列为空时
+//	{
+//		if (flag)
+//			return;
+//		while (!st.empty()) //将栈中剩余内容全部出栈
+//		{
+//			out.push(st.top());
+//			st.pop();
+//		}
+//		write_result(out);
+//		return;
+//	}
+//	else {
+//		if (flag) //flag为true入栈，为false出栈
+//		{
+//			//入栈，in队列放入st
+//			st.push(in.front());
+//			in.pop();
+//		}
+//		else {    //出栈，放入out队列
+//			if (st.empty()) //判断栈内有无数据
+//				return;
+//			out.push(st.top());
+//			st.pop();
+//		}
+//	}
+//	//递归调用
+//	solve(in, st, out, false);//出栈
+//	solve(in, st, out, true);//入栈
+//}
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		int sequence;
+//		queue<int> in, out;
+//		stack<int> st;
+//		for (int i = 0; i < num; ++i)
+//		{
+//			cin >> sequence;
+//			in.push(sequence);
+//		}
+//		solve(in, st, out, true);//
+//		sort(result.begin(), result.end());//将结果按字典排序
+//		for (auto it = result.begin(); it != result.end(); ++it)
+//		{
+//			cout << *it << endl;
+//		}
+//		result.clear();
+//	}
+//	return 0;
+//}
+
+////80.整型数组合并：排序、数组
+//#include <iostream>
+//#include <vector>
+//#include <map>
+//using namespace std;
+//int main()
+//{
+//	int n1, n2, a;
+//	while (cin >> n1)
+//	{
+//		map<int, int> m;
+//		for (int i = 0; i < n1; ++i)
+//		{
+//			cin >> a;
+//			m[a]++;
+//		}
+//		cin >> n2;
+//		for (int i = 0; i < n2; ++i)
+//		{
+//			cin >> a;
+//			m[a]++;
+//		}
+//		for (auto it : m)
+//		{
+//			cout << it.first;
+//		}
+//		cout << endl;
+//	}
+//	return 0;
+//}
+
+////81.字符串字符匹配：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//    string s1, s2;
+//    while (cin >> s1 >> s2)
+//    {
+//        bool flag = true;
+//        int size1 = s1.size();
+//        int size2 = s2.size();
+//        for (int i = 0; i < size1; ++i)
+//        {
+//            bool find = false;
+//            for (int j = 0; j < size2; ++j)
+//            {
+//                if (s1[i] == s2[j])
+//                {
+//                    find = true;
+//                    break;
+//                }
+//            }
+//            if (!find)
+//            {
+//                flag = false;
+//                break;
+//            }
+//        }
+//        if (flag)
+//            cout << "true" << endl;
+//        else
+//            cout << "false" << endl;
+//    }
+//    system("pause");
+//    return 0;
+//}
+
+//82.
+#include <iostream>
+using namespace std;
 int main()
 {
-	double a[4];
-	int o[3];
-	while (cin >> a[0] >> a[1] >> a[2] >> a[3])
-	{
-		bool flag = false;
-		sort(a, a + 4);
-		do {
-			for (int i = 0; i < 4 && !flag; ++i)
-			{
-				o[0] = i;
-				for (int j = 0; j < 4 && !flag; ++j)
-				{
-					o[1] = j;
-					for (int k = 0; k < 4 && !flag; ++k)
-					{
-						o[2] = k;
-						vector<double> va(a, a + 4);
-						vector<int> vo(o, o + 3);
-						if (cal24(va, vo)) flag = true;
-					}
-				}
-			}
-		} while (next_permutation(a, a + 4) && !flag);
-		if (flag) cout << "true" << endl;
-		else cout << "false" << endl;
-	}
-	return 0;
+
+    system("pause");
+    return 0;
 }
