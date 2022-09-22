@@ -4478,43 +4478,27 @@
 //    return 0;
 //}
 
-//100.
+////100.等差数列：数学
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//int main()
+//{
+//    int num;
+//    while (cin >> num)
+//    {
+//        cout << num * 2 + num * (num - 1) * 3 / 2 << endl; //Sn = n * a1 + n * (n - 1) * d / 2
+//    }
+//    return 0;
+//}
+
+//101.对数组元素按照升序或降序进行排序：排序
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
-bool isAN(int num)
-{
-    int square = num * num;
-    string sn = to_string(num);
-    string ss = to_string(square);
-    int k = ss.size() - 1;
-    for (int i = sn.size() - 1; i >= 0; --i)
-    {
-        if (sn[i] != ss[k])
-            return false;
-        k--;
-    }
-    return true;
-}
-int getAN(int num)
-{
-    int sum = 0;
-    for (int i = 0; i <= num; ++i)
-    {
-        if (isAN(i))
-        {
-            sum++;
-        }
-    }
-    return sum;
-}
 int main()
 {
-    int num;
-    while (cin >> num)
-    {
-        cout << getAN(num) << endl;
-    }
-    return 0;
+    
 }
