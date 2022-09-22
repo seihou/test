@@ -3586,16 +3586,935 @@
 //        else
 //            cout << "false" << endl;
 //    }
-//    system("pause");
 //    return 0;
 //}
 
-//82.
+////82.将真分数分解为埃及分数：贪心算法、数学、搜索
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//    string s;
+//    while (cin >> s)
+//    {
+//        string ans;
+//        int a, b;
+//        for (int i = 0; i < s.size(); ++i)
+//        {
+//            if (s[i] == '/')
+//            {
+//                a = stoi(s.substr(0, i));//分子
+//                b = stoi(s.substr(i + 1));//分母
+//                break;
+//            }
+//        }
+//        while (1)
+//        {
+//            int e = b / a + 1;
+//            ans = "1/";
+//            ans += to_string(e);
+//            a = a * e - b;//新的a   a/b - 1/e = (a * e - b)/(b * e)
+//            b = b * e;//新的b
+//            ans += "+";
+//            if (a == 1)
+//            {
+//                ans += "1/";
+//                ans += to_string(b);
+//                break;
+//            }
+//            else if (a > 1 && b % a == 0)
+//            {
+//                ans += "1/";
+//                ans += to_string(b / a);
+//                break;
+//            }
+//        }
+//        cout << ans << endl;
+//    }
+//    return 0;
+//}
+
+////83.二维数组操作：思维、数组
+//#include <iostream>
+//using namespace std;
+//int main()
+//{
+//	int m, n;
+//	while (cin >> m >> n)
+//	{
+//		if (m > 9 || n > 9)
+//			cout << "-1" << endl;
+//		else
+//			cout << "0" << endl;
+//		int m1, n1, m2, n2;
+//		cin >> m1 >> n1 >> m2 >> n2;
+//		if (m1 >= 0 && m1 < m && n1 >= 0 && n1 < n &&
+//			m2 >= 0 && m2 < m && n2 >= 0 && n2 < n)
+//			cout << "0" << endl;
+//		else
+//			cout << "-1" << endl;
+//		int mi, ni;
+//		cin >> mi >> ni;
+//		if (mi >= 0 && mi < m && m < 9)
+//			cout << "0" << endl;
+//		else
+//			cout << "-1" << endl;
+//		if (ni >= 0 && ni < n && n < 9)
+//			cout << "0" << endl;
+//		else
+//			cout << "-1" << endl;
+//		int mt, nt;
+//		cin >> mt >> nt;
+//		if (mt >= 0 && nt >= 0 && mt < m && nt < n)
+//			cout << "0" << endl;
+//		else
+//			cout << "-1" << endl;
+//	}
+//	return 0;
+//}
+
+////84.统计大写字母个数：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	string str;
+//	while (getline(cin, str))
+//	{
+//		int sum = 0;
+//		for (int i = 0; i < str.size(); ++i)
+//		{
+//			if (str[i] >= 'A' && str[i] <= 'Z')
+//				sum++;
+//		}
+//		cout << sum << endl;
+//	}
+//	return 0;
+//}
+
+////85.最长回文子串：字符串、穷举、回文
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	string str;
+//	while (getline(cin, str))
+//	{
+//		int max = 0;
+//		int size = str.size();
+//		for (int i = 0; i < size; ++i)
+//		{
+//			for (int j = size - 1; j > i; --j)
+//			{
+//				int m = i, n = j, t = 0;
+//				while (str[m] == str[n])
+//				{
+//					t++;
+//					m++;
+//					n--;
+//					if (m >= n)
+//					{
+//						if (m == n) //奇数个
+//							t = 2 * t + 1;
+//						else //偶数个
+//							t = 2 * t;
+//						if (t > max)
+//							max = t;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//		cout << max << endl;
+//	}
+//	return 0;
+//}
+
+////86.求最大连续bit数：位运算
+//#include <iostream>
+//#include <bitset>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//	int num;
+//	while (cin >> num)
+//	{
+//		string a;
+//		bitset<8> t(num);
+//		a = t.to_string();
+//		int max = 0;
+//		for (int i = 0; i < a.size(); ++i)
+//		{
+//			int len = 0;
+//			while (a[i] == '1')
+//			{
+//				++len;
+//				++i;
+//			}
+//			if (len > max)
+//				max = len;
+//		}
+//		cout << max << endl;
+//	}
+//	return 0;
+//}
+
+////87.密码强度等级：字符串
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//string SecurityLevel(string pw)
+//{
+//	int sum = 0;
+//	int size = pw.size();
+//	//长度
+//	if (size <= 4)
+//		sum += 5;
+//	else if (size >= 8)
+//		sum += 25;
+//	else
+//		sum += 10;
+//	bool noletter = true;
+//	bool haveupper = false;
+//	bool havelower = false;
+//	bool havenumber = false;
+//	bool havesymbol = false;
+//	int numsize = 0;
+//	int symbolsize = 0;
+//	for (int i = 0; i < size; ++i)
+//	{
+//		if (pw[i] >= '0' && pw[i] <= '9')
+//		{
+//			havenumber = true;
+//			numsize++;
+//		}
+//		else if (pw[i] >= 'a' && pw[i] <= 'z')
+//		{
+//			havelower = true;
+//			noletter = false;
+//		}
+//		else if (pw[i] >= 'A' && pw[i] <= 'Z')
+//		{
+//			haveupper = true;
+//			noletter = false;
+//		}
+//		else {
+//			symbolsize++;
+//			havesymbol = true;
+//		}
+//	}
+//	if (haveupper && havelower)
+//		sum += 20;
+//	else if ((haveupper && !havelower) || (!haveupper && havelower))
+//		sum += 10;
+//	if (numsize > 1)
+//		sum += 20;
+//	else if (numsize == 1)
+//		sum += 10;
+//	if (symbolsize > 1)
+//		sum += 25;
+//	else if (symbolsize == 1)
+//		sum += 10;
+//	if (haveupper && havelower && havenumber && havesymbol)
+//		sum += 5;
+//	else if (!noletter && havenumber && havesymbol)
+//		sum += 3;
+//	else if (!noletter && havenumber)
+//		sum += 2;
+//	//结果
+//	if (sum >= 90)
+//		return "VERY_SECURE";
+//	else if (sum >= 80)
+//		return "SECURE";
+//	else if (sum >= 70)
+//		return "VERY_STRONG";
+//	else if (sum >= 60)
+//		return "STRONG";
+//	else if (sum >= 50)
+//		return "AVERAGE";
+//	else if (sum >= 25)
+//		return "WEAK";
+//	else
+//		return "VERY_WEAK";
+//}
+//int main()
+//{
+//	string password;
+//	while (getline(cin, password))
+//	{
+//		cout << SecurityLevel(password) << endl;
+//	}
+//	return 0;
+//}
+
+////88.扑克牌大小：字符串、字典、排序、链表、队列、栈
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//vector<string> card = { "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "2", "joker", "JOKER" };//
+//vector<string> getchild(string s)
+//{
+//    vector<string> temp;
+//    string ss;
+//    for (int i = 0; i < s.size(); ++i)
+//    {
+//        if (s[i] == ' ')
+//        {
+//            temp.push_back(ss);
+//            ss.clear();//
+//            continue;
+//        }
+//        ss += s[i];
+//    }
+//    temp.push_back(ss);
+//    return temp;
+//}
+//bool cmd(string s1, string s2)
+//{
+//    int m, n;
+//    for (int i = 0; i < card.size(); ++i)
+//    {
+//        if (s1 == card[i])
+//            m = i;
+//        if (s2 == card[i])
+//            n = i;
+//    }
+//    if (m > n)
+//        return true;
+//    else
+//        return false;
+//}
+//bool isSame(vector<string> child)
+//{
+//    for (int i = 0; i < child.size(); ++i)
+//    {
+//        if (child[i] != child[0])
+//            return false;
+//    }
+//    return true;
+//}
+//bool isBomb(string s)
+//{
+//    vector<string> child = getchild(s);
+//    if (child.size() == 4 && isSame(child))
+//        return true;
+//    return false;
+//}
+//string Compare(string s1, string s2)
+//{
+//    if (s1 == "joker JOKER")
+//        return s1;
+//    else if (s2 == "joker JOKER")
+//        return s2;
+//    vector<string> c1 = getchild(s1);//
+//    vector<string> c2 = getchild(s2);
+//    if (isBomb(s1) && !isBomb(s2))
+//        return s1;
+//    else if (!isBomb(s1) && isBomb(s2))
+//        return s2;
+//    else if (isBomb(s1) && isBomb(s2))
+//    {
+//        if (cmd(c1[0], c2[0]))
+//            return s1;
+//        else
+//            return s2;
+//    }
+//    else {
+//        if (c1.size() != c2.size())
+//            return "ERROR";
+//        if (cmd(c1[0], c2[0]))//牌面从小到大，比较最小就行了
+//            return s1;
+//        else
+//            return s2;
+//    }
+//}
+//int main()
+//{
+//    string str;
+//    while (getline(cin, str))
+//    {
+//        string s1, s2;
+//        bool first = true;
+//        for (int i = 0; i < str.size(); ++i)
+//        {
+//            if (str[i] == '-')
+//            {
+//                first = false;
+//                continue;
+//            }
+//            if (first)
+//                s1 += str[i];
+//            else
+//                s2 += str[i];
+//        }
+//        cout << Compare(s1, s2) << endl;
+//    }
+//    return 0;
+//}
+
+////89.24点运算：字符串、模拟、穷举、STL
+//#include <iostream>
+//#include <string>
+//#include <algorithm>
+//#include <unordered_set>
+//#include <unordered_map>
+//#include <stack>
+//using namespace std;
+//unordered_set<string> err{ "joker", "JOKER" };
+//unordered_set<char> pri{ '+', '-', '*', '/' };
+//unordered_map<string, int> st;
+//string path = "";
+//int change(char c)
+//{
+//    if (isdigit(c)) return c - '0';
+//    else if (c == 'A') return 1;
+//    else if (c == 'J') return 11;
+//    else if (c == 'Q') return 12;
+//    else if (c == 'K') return 13;
+//}
+//int cal(string path)
+//{
+//    stack<int> st;
+//    stack<char> stc;
+//    for (int i = 0; i < path.size(); ++i)
+//    {
+//        if (!pri.count(path[i]))//是数字
+//        {
+//            if (!stc.empty())//运算符栈非空，计算
+//            {
+//                int a = st.top(); st.pop();
+//                int c = stc.top(); stc.pop();
+//                if (c == '+') a += change(path[i]);
+//                else if (c == '-') a -= change(path[i]);
+//                else if (c == '*') a *= change(path[i]);
+//                else a /= change(path[i]);
+//                st.push(a);//
+//            }
+//            else st.push(change(path[i]));//无运算符，数字入栈
+//        }
+//        else stc.push(path[i]);//运算符入栈
+//    }
+//    return st.top();
+//}
+//bool dfs(int x)
+//{
+//    char div[4] = { '+', '-', '*', '/' };
+//    bool flag = false;
+//    if (x == 4)
+//    {
+//        if (cal(path) == 24)
+//        {
+//            cout << path << endl;
+//            flag = true;
+//        }
+//    }
+//    for (auto& p : st)
+//    {
+//        if (p.second)
+//        {
+//            p.second--;
+//            path += p.first;//
+//            if (x != 3)
+//            {
+//                for (int i = 0; i < 4; ++i)
+//                {
+//                    path += div[i];//
+//                    flag = dfs(x + 1);////
+//                    if (flag)
+//                        return flag;
+//                    path.pop_back();
+//                }
+//            }
+//            else
+//                flag = dfs(x + 1);////
+//            if (flag)
+//                return flag;
+//            path.pop_back();//
+//            p.second++;//
+//        }
+//    }
+//    return flag;
+//}
+//int main()
+//{
+//    string a, b, c, d;
+//    while (cin >> a >> b >> c >> d)
+//    {
+//        if (err.count(a) || err.count(b) || err.count(c) || err.count(d))
+//            cout << "ERROR" << endl;
+//        else
+//        {
+//            st[a]++;
+//            st[b]++;
+//            st[c]++;
+//            st[d]++;
+//            if (!dfs(0))
+//                cout << "NONE" << endl;
+//        }
+//    }
+//    return 0;
+//}
+
+////90.合法IP：字符串、链表、队列、栈
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//string analyze(string str)
+//{
+//    string temp;
+//    int k = 0;
+//    for (int i = 0; i < str.size(); ++i)
+//    {
+//        if (str[i] == '.')
+//        {
+//            temp = str.substr(k, i - k);
+//            k = i + 1;
+//            int t = stoi(temp);
+//            if (t < 0 || t > 255)
+//                return "NO";
+//        }
+//    }
+//    temp = str.substr(k, str.size() - k);
+//    int t = stoi(temp);
+//    if (t < 0 || t > 255)
+//        return "NO";
+//    else
+//        return "YES";
+//}
+//int main()
+//{
+//    string str;
+//    while (cin >> str)
+//    {
+//        cout << analyze(str) << endl;
+//    }
+//    return 0;
+//}
+
+////91.走方格的方案数：字符串、递归
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int func(int n, int m)
+//{
+//    if (n == 0 || m == 0)
+//        return 1;
+//    else if (n < 0 || m < 0)
+//        return 0;
+//    else
+//        return func(n - 1, m) + func(n, m - 1);//
+//}
+//int main()
+//{
+//    int n, m;
+//    while (cin >> n >> m)
+//    {
+//        cout << func(n, m) << endl;
+//    }
+//    return 0;
+//}
+
+////92.在字符串中找出连续最长的数字串：字符串、STL
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//string find(string str, int &maxnum)
+//{
+//    vector<string> result;
+//    string maxstr, temp;
+//    int num = 0;
+//    int size = str.size();
+//    for (int i = 0; i < size; ++i)
+//    {
+//        if (str[i] >= '0' && str[i] <= '9')
+//        {
+//            temp += str[i];
+//            num++;
+//        }
+//        else {
+//            if (num > maxnum)
+//            {
+//                maxnum = num;
+//                result.clear();//
+//                result.push_back(temp);
+//            }
+//            else if (num == maxnum)
+//            {
+//                result.push_back(temp);
+//            }
+//            temp.clear();//
+//            num = 0;
+//        }
+//    }
+//    //末尾数字处理
+//    if (num > maxnum)
+//    {
+//        maxnum = num;
+//        result.clear();
+//        result.push_back(temp);
+//    }
+//    else if (num == maxnum) 
+//    {
+//        result.push_back(temp);
+//    }
+//    for (auto i : result)
+//        maxstr += i;
+//    return maxstr;
+//}
+//int main()
+//{
+//    string str;
+//    while (cin >> str)
+//    {
+//        int maxnum = 0;
+//        cout << find(str, maxnum) << "," << maxnum << endl;
+//    }
+//    return 0;
+//}
+
+////93.数组分组：字符串、数组、递归
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//bool add(int num5, int num3, vector<int> v)
+//{
+//    if (v.size())
+//    {
+//        if (num5 == num3)
+//            return true;
+//        else
+//            return false;
+//    }
+//    else {
+//        int b = v.back();
+//        v.pop_back();
+//        return add(num5 + b, num3, v) || add(num5, num3 + b, v);
+//    }
+//}
+//int main()
+//{
+//    int num;
+//    while (cin >> num)
+//    {
+//        int num3 = 0;
+//        int num5 = 0;
+//        vector<int> v;
+//        for (int i = 0; i < num; ++i)
+//        {
+//            int temp;
+//            cin >> temp;
+//            if (temp % 5 == 0)
+//                num5 += temp;//
+//            else if (temp % 3 == 0)
+//                num3 += temp;//
+//            else
+//                v.push_back(temp);
+//        }
+//        if (add(num5, num3, v))
+//            cout << "true" << endl;
+//        else
+//            cout << "false" << endl;
+//    }
+//    return 0;
+//}
+
+////94.记票统计：查找、STL
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <unordered_map>
+//using namespace std;
+//int main()
+//{
+//    int num;
+//    while (cin >> num)
+//    {
+//        vector<string> m(num);
+//        unordered_map<string, bool> flags(num);
+//        unordered_map<string, int> values(num);
+//        for (int i = 0; i < num; ++i)
+//        {
+//            string candidate;
+//            cin >> candidate;
+//            m[i] = candidate;
+//            flags[m[i]] = true;
+//        }
+//        int n;
+//        int invalid = 0;
+//        cin >> n;
+//        string vote;
+//        for (int i = 0; i < n; ++i)
+//        {
+//            
+//            cin >> vote;
+//            if (flags[vote] == true)
+//            {
+//                values[vote]++;
+//            }
+//            else
+//                invalid++;
+//        }
+//        for (int i = 0; i < num; ++i)
+//        {
+//            cout << m[i] << " : " << values[m[i]] << endl;
+//        }
+//        cout << "Invalid: " << invalid << endl;
+//    }
+//    return 0;
+//}
+
+////95.人民币转换：字符串、思维、STL
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//vector<string> nums = { "零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖" };
+//vector<string> unit1 = { "元", "万", "亿", "万", "亿" };
+//vector<string> unit2 = { "仟", " ", "拾", "佰" };
+//int main()
+//{
+//	double money;
+//	while (cin >> money)
+//	{
+//		cout << "人民币";
+//		string sm = to_string(money);
+//		int index = sm.find('.');//
+//		string mf = sm.substr(0, index);
+//		string mb = sm.substr(index + 1);
+//		if (mf == "0")
+//		{
+//			if (mb[0] == '0' && mb[1] == '0')
+//				cout << "零元整";
+//			else if (mb[1] == '0')
+//				cout << nums[mb[0] - '0'] << "角";
+//			else if (mb[0] == '0')
+//				cout << "零" << nums[mb[1] - '0'] << "分";
+//			else
+//				cout << nums[mb[0] - '0'] << "角" << nums[mb[1] - '0'] << "分";
+//			cout << endl;
+//			continue;
+//		}
+//		while (mf.size())
+//		{
+//			int t1 = mf.size() / 4;//每四位处理一次
+//			int t2 = mf.size() % 4;
+//			if (t2 != 1)
+//			{
+//				if (mf[0] == '0')
+//				{
+//					if (mf[1] == '0')
+//					{
+//						mf = mf.substr(1);
+//						continue;
+//					}
+//					else {
+//						cout << nums[0];
+//					}
+//				}
+//				else {
+//					if (mf[0] - '0' == 1 && t2 == 2)
+//						cout << unit2[t2];
+//					else
+//						cout << nums[mf[0] - '0'] << unit2[t2];
+//				}
+//			}
+//			else {
+//				if (mf[0] == '0')
+//					cout << unit1[t1];
+//				else
+//					cout << nums[mf[0] - '0'] << unit1[t1];
+//			}
+//		}
+//		if (mb[0] == '0' && mb[1] == '0')
+//			cout << "整";
+//		else if (mb[1] == '0')
+//			cout << nums[mb[0] - '0'] << "角";
+//		else if (mb[0] == '0')
+//			cout << nums[mb[1] - '0'] << "分";
+//		else
+//			cout << nums[mb[0] - '0'] << "角" << nums[mb[1] - '0'] << "分";
+//		cout << endl;
+//	}
+//	return 0;
+//}
+
+////96.表示数字：字符串、ST
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//int main()
+//{
+//    string str;
+//    while (cin >> str)
+//    {
+//        string result;
+//        bool start = false;
+//        for (int i = 0; i < str.size(); ++i)
+//        {
+//            if (str[i] >= '0' && str[i] <= '9')
+//            {
+//                if (start)
+//                    result += str[i];
+//                else {
+//                    result += '*';
+//                    result += str[i];
+//                    start = true;
+//                }
+//            }
+//            else if (start)
+//            {
+//                result += '*';
+//                result += str[i];
+//                start = false;
+//            }
+//            else
+//            {
+//                result += str[i];
+//            }
+//        }
+//        if (str[str.size() - 1] >= '0' && str[str.size() - 1] <= '9') //判断最后一个字符是不是数字
+//            result += '*';
+//        cout << result << endl;
+//    }
+//    return 0;
+//}
+
+////97.记负均正：数组、思维
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <iomanip>
+//using namespace std;
+//double mean(vector<int> pos)
+//{
+//    double ans = 0.0;
+//    for (int i = 0; i < pos.size(); ++i)
+//    {
+//        ans += pos[i];
+//    }
+//    ans /= pos.size();
+//    return ans;
+//}
+//int main()
+//{
+//    int num;
+//    while (cin >> num)
+//    {
+//        vector<int> pos;
+//        vector<int> neg;
+//        for (int i = 0; i < num; ++i)
+//        {
+//            int t;
+//            cin >> t;
+//            if (t > 0)
+//                pos.push_back(t);
+//            else if (t < 0)
+//                neg.push_back(t);
+//        }
+//        double result = mean(pos);
+//        cout << neg.size() << endl;
+//        cout << fixed << setprecision(1) << result << endl;
+//    }
+//    return 0;
+//}
+
+////98.自动售货系统：模拟、面向对象、字符串
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//int main()
+//{
+//    
+//    return 0;
+//}
+
+////99.自守数：数学、查找、提速
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//bool isAN(int num)
+//{
+//    int square = num * num;
+//    string sn = to_string(num);
+//    string ss = to_string(square);
+//    int k = ss.size() - 1;
+//    for (int i = sn.size() - 1; i >= 0; --i)
+//    {
+//        if (sn[i] != ss[k])
+//            return false;
+//        k--;
+//    }
+//    return true;
+//}
+//int getAN(int num)
+//{
+//    int sum = 0;
+//    for (int i = 0; i <= num; ++i)
+//    {
+//        if (isAN(i))
+//        {
+//            sum++;
+//        }
+//    }
+//    return sum;
+//}
+//int main()
+//{
+//    int num;
+//    while (cin >> num)
+//    {
+//        cout << getAN(num) << endl;
+//    }
+//    return 0;
+//}
+
+//100.
 #include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
+bool isAN(int num)
+{
+    int square = num * num;
+    string sn = to_string(num);
+    string ss = to_string(square);
+    int k = ss.size() - 1;
+    for (int i = sn.size() - 1; i >= 0; --i)
+    {
+        if (sn[i] != ss[k])
+            return false;
+        k--;
+    }
+    return true;
+}
+int getAN(int num)
+{
+    int sum = 0;
+    for (int i = 0; i <= num; ++i)
+    {
+        if (isAN(i))
+        {
+            sum++;
+        }
+    }
+    return sum;
+}
 int main()
 {
-
-    system("pause");
+    int num;
+    while (cin >> num)
+    {
+        cout << getAN(num) << endl;
+    }
     return 0;
 }
