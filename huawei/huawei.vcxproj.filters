@@ -18,5 +18,8 @@
     <ClCompile Include="huawei.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\practice\practice.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
