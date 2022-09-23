@@ -1,4 +1,3 @@
 ﻿  huawei.cpp
-C:\workplace\c++\test\huawei\huawei.cpp(4450,26): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-C:\workplace\c++\test\huawei\huawei.cpp(4451,5): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\workplace\c++\test\huawei\huawei.cpp(4630,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
   huawei.vcxproj -> C:\workplace\c++\test\huawei\x64\Debug\huawei.exe

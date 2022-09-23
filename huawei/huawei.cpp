@@ -4430,10 +4430,260 @@
 //#include <iostream>
 //#include <string>
 //#include <vector>
+//#include <algorithm>
+//#include <unordered_map>
 //using namespace std;
+////商品类
+//class Goods
+//{
+//private:
+//    string name;
+//    int price;
+//    int num;
+//public:
+//    Goods() {
+//        name = "NONE";
+//        price = 0;
+//        num = 0;
+//    }
+//    Goods(string str, int i, int j) {
+//        name = str;
+//        price = i;
+//        num = j;
+//    }
+//    void Init(int j) {
+//        num = j;
+//    }
+//    string& Name() { return name; }
+//    int& Price() { return price; }
+//    int& Num() { return num; }
+//    void addGoods(int i = 1) {
+//        num += i;
+//    }
+//    void redeceGoods(int i = 1) {
+//        num -= i;
+//    }
+//};
+////存钱盒类
+//class SavingBox
+//{
+//private:
+//    unordered_map<int, int> coins;
+//public:
+//    SavingBox() {
+//        coins[1] = 0;
+//        coins[2] = 0;
+//        coins[5] = 0;
+//        coins[10] = 0;
+//    }
+//    SavingBox(unordered_map<int, int>& index) {
+//        for (auto iter = index.begin(); iter != index.end(); ++iter) {
+//            coins[iter->first] = iter->second;
+//        }
+//    }
+//    unordered_map<int, int>& Coins() { return coins; };
+//
+//    void Init(unordered_map<int, int>& index) {
+//        for (auto iter = index.begin(); iter != index.end(); iter++) {
+//            coins[iter->first] = iter->second;
+//        }
+//    }
+//    void addCoin(int i, int j = 1) {
+//        coins[i] += j;
+//    }
+//    void reduceCoin(int i, int j = 1) {
+//        coins[i] -= j;
+//    }
+//    int getCoinNum(int i) {
+//        if (coins.count(i))
+//            return coins[i];
+//        else
+//            throw("输入错误");
+//    }
+//};
+////售货系统类
+//class VendingSystem
+//{
+//private:
+//    vector<string> names = { "A1", "A2", "A3", "A4", "A5", "A6" };
+//    vector<int> prices = { 2, 3, 4, 5, 8, 6 };
+//    vector<Goods> shops;//
+//    vector<int> coins = { 1, 2, 5, 10 };
+//    SavingBox box;//
+//    int balance;//投币余额
+//public:
+//    VendingSystem() {
+//        for (int i = 0; i < 6; ++i) {
+//            shops.push_back(Goods(names[i], prices[i], 0));
+//        }
+//        unordered_map<int, int> index;
+//        for (int k = 0; k < int(coins.size()); ++k) {
+//            index[coins[k]] = 0;
+//        }
+//        box = SavingBox(index);
+//        balance = 0;
+//    }
+//    void Run(string str) {
+//        if (str[0] == 'r') {
+//            Init(str);
+//        }
+//        else if (str[0] == 'p') {
+//            Pay(str);
+//        }
+//        else if (str[0] == 'b') {
+//            Buy(str);
+//        }
+//        else if (str[0] == 'c') {
+//            Charge();
+//        }
+//        else if (str[0] == 'q') {
+//            Query(str);
+//        }
+//        else {
+//            throw("输入错误");
+//        }
+//    }
+//    void Init(string str) {
+//        balance = 0;
+//        str = str.substr(2, str.size() - 2);
+//        string initGoodsCmd = str.substr(0, str.find(' '));
+//        string initBoxCmd = str.substr(str.find(' ') + 1, str.size() - str.find(' ') - 1);
+//        vector<int> nums;
+//        int i = 0, j = 0;
+//        while (j < int(initGoodsCmd.size())) {
+//            if (initGoodsCmd[j] == '-') {
+//                nums.push_back(stoi(initGoodsCmd.substr(i, j - i).c_str()));
+//                i = j + 1;
+//            }
+//            j++;
+//        }
+//        nums.push_back(stoi(initBoxCmd.substr(i, j - i).c_str()));
+//        for (int i = 0; i < 6; ++i) {
+//            shops[i].Init(nums[i]);
+//        }
+//        nums.clear();
+//        i = 0, j = 0;
+//        while (j < int(initBoxCmd.size())) {
+//            if (initBoxCmd[j] == '-') {
+//                nums.push_back(stoi(initBoxCmd.substr(i, j - i).c_str()));
+//                i = j + 1;
+//            }
+//            j++;
+//        }
+//        nums.push_back(stoi(initBoxCmd.substr(i, j - i).c_str()));
+//        unordered_map<int, int> index;
+//        for (int k = 0; k < int(coins.size()); ++k) {
+//            index[coins[k]] = nums[k];
+//        }
+//        box.Init(index);
+//        cout << "S001:Initialization is successful" << endl;
+//    }
+//    void Pay(string str) {
+//        int money = atoi(str.substr(2, str.size() - 2).c_str());
+//        if (!count(coins.begin(), coins.end(), money)) {
+//            cout << "E002:Denomination error" << endl;
+//            return;
+//        }
+//        if (money == 5 || money == 10) {
+//            if ((box.getCoinNum(1) + box.getCoinNum(2) * 2) < money) {
+//                cout << "E003:Charge is not enough, pay fail" << endl;
+//                return;
+//            }
+//        }
+//        bool flag = true;
+//        for (auto shop : shops) {
+//            if (shop.Num() > 0) {
+//                flag = false;
+//                break;
+//            }
+//        }
+//        if (flag) {
+//            cout << "E005:All the goods sold out" << endl;
+//            return;
+//        }
+//        balance += money;
+//        box.addCoin(money);
+//        cout << "S001:Pay success, balance = " << balance << endl;
+//    }
+//    void Buy(string str) {
+//        string name = str.substr(2, str.size() - 1);
+//        if (!count(names.begin(), names.end(), name)) {
+//            cout << "E006:Goods does not exist" << endl;
+//        }
+//        Goods& shop = shops[distance(names.begin(), find(names.begin(), names.end(), name))];//distance()
+//        if (shop.Num() == 0) {
+//            cout << "E007:The goods sold out" << endl;
+//            return;
+//        }
+//        if (shop.Price() > balance) {
+//            cout << "E008:Lack of balance" << endl;
+//        }
+//        shop.redeceGoods();
+//        balance -= shop.Price();
+//        cout << "S003:Buy success, balance = " << balance << endl;
+//    }
+//    void Charge() {
+//        if (balance == 0) {
+//            cout << "E009:Wor failure" << endl;
+//            return;
+//        }
+//        vector<int> info(coins.size());
+//        for (int i = coins.size() - 1; i >= 0; i--) {
+//            int coin = coins[i];
+//            while (balance >= coin && box.getCoinNum(coin) > 0) {
+//                balance -= coin;
+//                box.reduceCoin(coin);
+//                info[i]++;
+//            }
+//        }
+//        for (int i = 0; i < int(info.size()); i++) {
+//            cout << coins[i] << " yuan coin number = " << info[i] << endl;
+//        }
+//    }
+//    void Query(string str) {
+//        if (str == "q 0") {
+//            vector<Goods> shops_ = shops;
+//            sort(shops_.begin(), shops_.end(), cmp); //根据商品数量从大到小排序
+//            for (auto shop : shops_) {
+//                cout << shop.Name() << " " << shop.Price() << " " << shop.Num() << endl;
+//            }
+//            return;
+//        }
+//        if (str == "q 1") {
+//            for (int coin : coins) {
+//                cout << coin << " yuan coin number = " << box.getCoinNum(coin) << endl;
+//            }
+//            return;
+//        }
+//        cout << "E010:Parameter error" << endl;
+//    }
+//    static bool cmp(Goods g1, Goods g2) {
+//        return g1.Num() < g2.Num();
+//    }
+//};
 //int main()
 //{
-//    
+//    string str;
+//    vector<string> cmds;
+//    VendingSystem sys;
+//    while (getline(cin, str))
+//    {
+//        int i = 0, j = 0;
+//        cmds.clear();//
+//        while (j < int(str.size()))
+//        {
+//            if (str[j] == ';')
+//            {
+//                cmds.push_back(str.substr(i, j - i));
+//                i = j + 1;
+//            }
+//            j++;
+//        }
+//        for (unsigned int i = 0; i < cmds.size(); ++i)
+//        {
+//            sys.Run(cmds[i]);
+//        }
+//    }
 //    return 0;
 //}
 
@@ -4493,12 +4743,233 @@
 //    return 0;
 //}
 
-//101.对数组元素按照升序或降序进行排序：排序
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
-int main()
-{
-    
-}
+////101.对数组元素按照升序或降序进行排序：排序
+//#include <iostream>
+//#include <algorithm>
+//#include <vector>
+//using namespace std;
+//bool cmpdes(int a, int b)
+//{
+//    return a > b;
+//}
+//bool cmpasc(int a, int b)
+//{
+//    return a < b;
+//}
+//int main()
+//{
+//    int num;
+//    while (cin >> num)
+//    {
+//        vector<int> t;
+//        for (int i = 0; i < num; ++i)
+//        {
+//            int a;
+//            cin >> a;
+//            t.push_back(a);
+//        }
+//        int flag;
+//        cin >> flag;
+//        if (flag)
+//        {
+//            sort(t.begin(), t.end(), cmpdes);
+//        }
+//        else {
+//            sort(t.begin(), t.end(), cmpasc);
+//        }
+//        for (auto i : t)
+//            cout << i << " ";
+//        cout << endl;
+//    }
+//    return 0;
+//}
+
+////102.字符统计：字符串、排序、STL
+//#include <iostream>
+//#include <algorithm>
+//#include <vector>
+//#include <map>
+//#include <string>
+//using namespace std;
+//bool cmd(pair<char, int> a, pair<char, int> b)
+//{
+//    if (a.second == b.second)
+//        return a.first < b.first;
+//    else
+//        return a.second > b.second;
+//}
+//int main()
+//{
+//    string str;
+//    while (getline(cin, str))
+//    {
+//        map<char, int> m;
+//        for (int i = 0; i < str.size(); ++i)
+//        {
+//            m[str[i]]++;
+//        }
+//        vector<pair<char, int>> v(m.begin(), m.end());
+//        sort(v.begin(), v.end(), cmd);//
+//        for (auto i : v)
+//            cout << i.first;
+//        cout << endl;
+//    }
+//    return 0;
+//}
+
+////103.字符统计：字符串、排序、STL
+//#include <iostream>
+//#include <algorithm>
+//#include <vector>
+//#include <map>
+//#include <string>
+//using namespace std;
+//bool cmd(pair<char, int> a, pair<char, int> b)
+//{
+//    if (a.second == b.second)
+//        return a.first < b.first;
+//    else
+//        return a.second > b.second;
+//}
+//int main()
+//{
+//    string str;
+//    while (getline(cin, str))
+//    {
+//        map<char, int> m;
+//        for (int i = 0; i < str.size(); ++i)
+//        {
+//            m[str[i]]++;
+//        }
+//        vector<pair<char, int>> v(m.begin(), m.end());
+//        sort(v.begin(), v.end(), cmd);//
+//        for (auto i : v)
+//            cout << i.first;
+//        cout << endl;
+//    }
+//    return 0;
+//}
+
+////103.Redraiment的走法：排序、动态规划
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//    int num;
+//    while (cin >> num)
+//    {
+//        vector<int> v;
+//        for (int i = 0; i < num; ++i)
+//        {
+//            int temp;
+//            cin >> temp;
+//            v.push_back(temp);
+//        }
+//        vector<int> result(num, 1);
+//        for (int i = 0; i < num; ++i)
+//            for (int j = 0; j < i; j++)
+//                if (v[j] < v[i])
+//                    result[i] = max(result[i], result[j] + 1);//动态刷新
+//        int max = *max_element(result.begin(), result.end());
+//        cout << max << endl;
+//    }
+//    return 0;
+//}
+
+////105.记负均正II：数组、思维
+//#include <iostream>
+//#include <vector>
+//#include <iomanip>
+//using namespace std;
+//double mean(vector<int> pos)
+//{
+//    double ans = 0.0;
+//    for (int i = 0; i < pos.size(); ++i)
+//    {
+//        ans += pos[i];
+//    }
+//    return ans /= pos.size();
+//}
+//int main()
+//{
+//    int num;
+//    vector<int> pos;
+//    vector<int> neg;
+//    while (cin >> num)
+//    {
+//        if (num >= 0)
+//            pos.push_back(num);
+//        else
+//            neg.push_back(num);
+//    }
+//    double result = mean(pos);
+//    cout << neg.size() << endl;
+//    if (pos.size() == 0)//
+//        cout << "0.0" << endl;
+//    else
+//        cout << fixed << setprecision(1) << result << endl;
+//    return 0;
+//}
+
+////106.字符逆序：字符串
+//#include <iostream>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//    string str;
+//    while (cin >> str)
+//    {
+//        reverse(str.begin(), str.end());
+//        cout << str << endl;
+//    }
+//    return 0;
+//}
+
+////107.求解立方根：数学、二分、牛顿迭代法
+//#include <iostream>
+//#include <iomanip>
+//using namespace std;
+//double func(double t, double num)
+//{
+//    if (abs(t * t * t - num) < 0.00001)
+//        return t;
+//    else
+//        return func((num / t / t + 2 * t) / 3, num);//x(n+1)=x(n)+(c/(x(n)^2)-x(n))/3
+//}
+//int main()
+//{
+//    double num;
+//    while (cin >> num)
+//    {
+//        double result = func(1, num);
+//        cout << fixed << setprecision(1) << result << endl;
+//    }
+//    return 0;
+//}
+
+////108.求最小公倍数：数学、递归
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//int func(int n1, int n2)
+//{
+//    for (int i = n1; i <= n1 * n2; ++i)
+//    {
+//        if (i % n1 == 0 && i % n2 == 0)
+//            return i;
+//    }
+//    return n1 * n2;
+//}
+//int main()
+//{
+//    int n1, n2;
+//    while (cin >> n1 >> n2)
+//    {
+//        cout << func(n1, n2) << endl;
+//    }
+//    return 0;
+//}
