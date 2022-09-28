@@ -1,4 +1,4 @@
-//stack:可以用vector, deque, list实现.
+//stack:可以用vector, deque, list实现
 //queue:可以用deque, list实现
 //priority_queue:可以用deque, vector实现
 
@@ -57,9 +57,26 @@ public:
 	queue<int> q1;
 	queue<int> q2;
 	MyStack() {
+		
+	}
+	void push(int x) {
+		q1.push(x);
+	}
+	int pop() {
+		int size = q1.size();
+		size--;
+		while (size--) {
+			q2.push(q1.front());//将que1 导入que2，但要留下最后一个元素
+			q1.pop();
+		}
+		int result = q1.
+	}
+	int top() {
 
 	}
-	
+	bool empty() {
+		return q1.empty() && q2.empty();
+	}
 };
 int main()
 {
