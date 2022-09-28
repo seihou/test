@@ -49,7 +49,42 @@
 //}
 
 
-////3.翻转字符串里的单词（不使用额外空间）
+////3.替换空格 （不需要辅助空间）
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//string replaceSpace(string str) {
+//    int count = 0;
+//    int oldsize = str.size();
+//    for (int i = 0; i < oldsize; ++i) {
+//        if (str[i] == ' ') {
+//            count++;
+//        }
+//    }
+//    str.resize(oldsize + count * 2);//
+//    int newsize = str.size();
+//    for (int i = newsize - 1, j = oldsize - 1; j < i; --i, --j) {
+//        if (str[j] != ' ') {
+//            str[i] = str[j];
+//        }
+//        else {
+//            str[i] = '0';
+//            str[i - 1] = '2';
+//            str[i - 2] = '%';
+//            i -= 2;
+//        }
+//    }
+//    return str;
+//}
+//int main()
+//{
+//    string str = "We are happy.";
+//    cout << replaceSpace(str) << endl;
+//    return 0;
+//}
+
+
+////4.翻转字符串里的单词（不使用额外空间）
 //#include <iostream>
 //#include <string>
 //using namespace std;
