@@ -180,19 +180,31 @@ public:
         while (cur != NULL || !st.empty()) {
             if (cur != NULL) {
                 st.push(cur);
-                cur = cur->left;
+                cur = cur->left;//左
             }
             else {
-
+                cur = st.top();
+                st.pop();
+                result.push_back(cur->val);//中
+                cur = cur->right;//右
             }
         }
         return result;
     }
-    //后序迭代遍历 (处理顺序和访问顺序是不一致的)
+    //后序迭代遍历 (处理顺序和访问顺序是不一致的) 中左右-->中右左-->左右中
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int> result;
         stack<TreeNode*> st;
-
+        if (root == NULL) return result;
+        st.push(root);
+        while (!st.empty()) {
+            TreeNode* node = st.top();//处理中间结点
+            st.pop();
+            result.push_back(node->val);
+            if (node->left) st.push(node->left);//相对于前序遍历，这更改一下入栈顺序
+            if (node->right) st.push(node->right);//
+        }
+        reverse(result.begin(), result.end());//结果反转
         return result;
     }
 };
@@ -201,7 +213,7 @@ int main()
     vector<int> vec = { 4,1,6,0,2,5,7,-1,-1,-1,3,-1,-1,-1,8 };//层序建立二叉树
     TreeNode* root = construct_binary_tree(vec);
     Solution solution;
-    vector<int> result = solution.preorderTraversal(root);
+    vector<int> result = solution.postorderTraversal(root);
     print_binary_tree(root);
     cout << endl;
     for (auto i : result) {
